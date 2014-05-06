@@ -1,7 +1,16 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,14 +29,69 @@ public class DogeCount {
     private float electricityCost;
     private float profit;
     private float balance;
+    private boolean[] errorsCode;
 
+    public DogeCount() throws IOException{
+        accountAddress = "D7qiHYRU4Ti3h5CPipY5gpz94ZD1jPB3TH";
+        downloadBalance();
+    }
+    
+    
+    public static void main(String[] args) throws IOException {
+        DogeCount dc = new DogeCount();
+        try {
+            dc.downloadBalance();
+        } catch (IOException ex) {
+            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
    
     private void countProfit(){
         
     }
     
-    private void downloadBalance(){
-        
+    private void downloadBalance() throws MalformedURLException, IOException{
+        if(accountAddress!=null){
+            String json = getJSON("http://dogechain.info/chain/CHAIN/q/addressbalance/"+accountAddress,8000);
+            balance = Float.parseFloat(json);
+            
+        }else{
+            errorsCode[0]=true;
+        }
+    }
+    
+    private String getJSON(String url, int timeout) {
+        try {
+            URL u = new URL(url);
+            HttpURLConnection c = (HttpURLConnection) u.openConnection();
+            c.setRequestMethod("GET");
+            c.setRequestProperty("Content-length", "0");
+            c.setUseCaches(false);
+            c.setAllowUserInteraction(false);
+            c.setConnectTimeout(timeout);
+            c.setReadTimeout(timeout);
+            c.connect();
+            int status = c.getResponseCode();
+
+            switch (status) {
+                case 200:
+                case 201:
+                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line+"\n");
+                    }
+                    br.close();
+                    return sb.toString();
+            }
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     private void downloadPriceBTC(){
@@ -131,6 +195,10 @@ public class DogeCount {
 
     public float getBalance() {
         return balance;
+    }
+    
+    public String getBalanceString() {
+        return Float.toString(balance);
     }
 
     public void setBalance(float balance) {
