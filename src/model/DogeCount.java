@@ -31,84 +31,17 @@ public class DogeCount {
     private float balance;
     private boolean[] errorsCode;
 
-    public DogeCount() throws IOException{
+    public DogeCount(){
         accountAddress = "D7qiHYRU4Ti3h5CPipY5gpz94ZD1jPB3TH";
-        downloadBalance();
+        
     }
     
     
-    public static void main(String[] args) throws IOException {
-        DogeCount dc = new DogeCount();
-        try {
-            dc.downloadBalance();
-        } catch (IOException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
    
     private void countProfit(){
         
     }
-    
-    private void downloadBalance() throws MalformedURLException, IOException{
-        if(accountAddress!=null){
-            String json = getJSON("http://dogechain.info/chain/CHAIN/q/addressbalance/"+accountAddress,8000);
-            balance = Float.parseFloat(json);
-            
-        }else{
-            errorsCode[0]=true;
-        }
-    }
-    
-    private String getJSON(String url, int timeout) {
-        try {
-            URL u = new URL(url);
-            HttpURLConnection c = (HttpURLConnection) u.openConnection();
-            c.setRequestMethod("GET");
-            c.setRequestProperty("Content-length", "0");
-            c.setUseCaches(false);
-            c.setAllowUserInteraction(false);
-            c.setConnectTimeout(timeout);
-            c.setReadTimeout(timeout);
-            c.connect();
-            int status = c.getResponseCode();
 
-            switch (status) {
-                case 200:
-                case 201:
-                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line+"\n");
-                    }
-                    br.close();
-                    return sb.toString();
-            }
-
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    private void downloadPriceBTC(){
-        
-    }
-    
-    private void downloadPriceDOGE(){
-        
-    }
-    
-    private List getAvaliableBTCStocks(){
-        return null;
-    }
-    
-    private List getAvaliableDOGEStocks(){
-        return null;
-    }
     
     //_________________________________________________________________
     //Setters and Getters
