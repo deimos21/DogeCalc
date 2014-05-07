@@ -1,21 +1,20 @@
 package gui;
 
-import model.DogeCount;
-
 import java.io.IOException;
 import javafx.application.Application;
-import static javafx.application.ConditionalFeature.FXML;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.DogeCount;
+import model.Settings;
+import model.SettingsStorage;
 
 /**
  *
@@ -23,13 +22,12 @@ import javafx.stage.StageStyle;
  */
 public class MainWindow extends Application {
     
-    private Stage dialog;
+    private DogeCount dc;
+    
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        
-        DogeCount dc = new DogeCount();
-                
+           
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
 
         Scene scene = new Scene(root, 390, 254);
@@ -39,25 +37,17 @@ public class MainWindow extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         
-        dialog = new Stage();
-        dialog.initStyle(StageStyle.UTILITY);
-        dialog.setResizable(false);
-        dialog.setTitle("Ustawienia");
-        Parent editRoot = FXMLLoader.load(getClass().getResource("edit.fxml"));
-        Scene sceneEdit = new Scene(editRoot, 419, 435);
-        dialog.setScene(sceneEdit);
+        final SettingsWindow sw = new SettingsWindow();
         
         Button editButton = (Button) root.lookup("#editButton");
         if (editButton!=null) editButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                dialog.show();
+                sw.getDialog().show();
             }
         });
         
-        Label balanceLabel = (Label) root.lookup("#balanceLabel");
-        if (balanceLabel!=null) balanceLabel.setText(dc.getBalanceString()+" DOGE");
     }
     
     

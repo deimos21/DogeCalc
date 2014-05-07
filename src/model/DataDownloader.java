@@ -6,24 +6,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  *
@@ -48,7 +40,7 @@ public class DataDownloader {
     }
     
     protected HashMap downloadPricesBTC(){
-        HashMap pricesBTC = new HashMap();
+        HashMap<String, Double> pricesBTC = new HashMap<>();
         
         String jsonFromApi = getHttpResponseText(urlApiPricesBTC, timeout);
         
@@ -69,7 +61,7 @@ public class DataDownloader {
 
                     double briceBTC = Double.parseDouble(obj4.get("last").toString());
 
-                    pricesBTC.put(pairs.getKey(), briceBTC);
+                    pricesBTC.put(pairs.getKey().toString(), briceBTC);
                 }
                 
                 it.remove(); // avoids a ConcurrentModificationException
@@ -88,7 +80,7 @@ public class DataDownloader {
     
     protected HashMap downloadPricesDoge(){
         
-        HashMap pricesDoge = new HashMap();
+        HashMap<String, Double> pricesDoge = new HashMap<>();
         
         double priceDoge = 0;
         
@@ -119,7 +111,7 @@ public class DataDownloader {
     }
     
     protected HashMap downloadPricesCurrencies(){
-        HashMap pricesCurrencies = new HashMap();
+        HashMap<String, Double> pricesCurrencies = new HashMap<>();
         
         String jsonFromApi = getHttpResponseText(urlApiPricesCurrencies, timeout);
         
@@ -189,5 +181,46 @@ public class DataDownloader {
             Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public static ArrayList getAvaliableCurrencies(){
+        ArrayList<String> currencies = new ArrayList();
+        currencies.add("PLN");
+        currencies.add("USD");
+        currencies.add("EUR");
+        
+        return currencies;
+    }
+    
+    public static ArrayList getAvaliableBtcStocks(){
+        ArrayList<String> stocks = new ArrayList();
+        DataDownloader dd = new DataDownloader();
+        
+        HashMap hm = dd.downloadPricesBTC();
+        
+        Iterator it = hm.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            stocks.add((String) pairs.getKey());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        
+        return stocks;
+    }
+    
+    public static ArrayList getAvaliableDogeStocks(){
+        ArrayList<String> stocks = new ArrayList();
+        DataDownloader dd = new DataDownloader();
+        
+        HashMap hm = dd.downloadPricesDoge();
+        
+        Iterator it = hm.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            stocks.add((String) pairs.getKey());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        
+        return stocks;
     }
 }

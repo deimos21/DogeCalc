@@ -7,41 +7,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="419.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="419.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <Label layoutX="36.0" layoutY="28.0" text="Adres konta:" />
-    <TextField layoutX="145.0" layoutY="28.0" prefWidth="232.0" />
+    <TextField fx:id="addressAccount" layoutX="145.0" layoutY="28.0" prefWidth="232.0" />
     <Separator layoutX="0.0" layoutY="69.0" prefWidth="419.0" />
-    <Label layoutX="36.0" layoutY="97.0" text="Kurs BTC/USD:" />
-    <Label layoutX="36.0" layoutY="137.0" text="Kurs DOGE/BTC:" />
-    <ChoiceBox layoutX="145.0" layoutY="97.0" prefWidth="232.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
-        </FXCollections>
-      </items>
-    </ChoiceBox>
-    <ChoiceBox layoutX="146.0" layoutY="135.0" prefWidth="232.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
-        </FXCollections>
-      </items>
-    </ChoiceBox>
-    <Separator layoutX="0.0" layoutY="182.0" prefWidth="419.0" />
-    <CheckBox layoutX="36.0" layoutY="332.0" mnemonicParsing="false" text="Stała kwota" />
-    <TextField layoutX="146.0" layoutY="330.0" prefWidth="232.0" />
-    <Label layoutX="36.0" layoutY="210.0" text="Moc koparek:" />
-    <TextField layoutX="145.0" layoutY="208.0" prefWidth="232.0" />
-    <Label layoutX="36.0" layoutY="246.0" text="Taryfa:" />
-    <TextField layoutX="145.0" layoutY="244.0" prefWidth="232.0" />
-    <Label layoutX="36.0" layoutY="282.0" text="Data początkowa:" />
-    <TextField layoutX="145.0" layoutY="280.0" prefWidth="232.0" />
-    <Separator layoutX="0.0" layoutY="376.0" prefWidth="419.0" />
-    <Button layoutX="306.0" layoutY="391.0" mnemonicParsing="false" prefWidth="72.0" text="Zapisz" />
+    <Label layoutX="36.0" layoutY="128.0" text="Kurs BTC/USD:" />
+    <Label layoutX="36.0" layoutY="168.0" text="Kurs DOGE/BTC:" />
+    <ChoiceBox fx:id="dogeStock" layoutX="145.0" layoutY="128.0" prefWidth="232.0" />
+    <ChoiceBox fx:id="btcStock" layoutX="146.0" layoutY="166.0" prefWidth="232.0" />
+    <Separator layoutX="0.0" layoutY="213.0" prefWidth="419.0" />
+    <CheckBox fx:id="isConstElectricityCost" layoutX="36.0" layoutY="363.0" mnemonicParsing="false" text="Stała kwota" />
+    <TextField fx:id="constElectricityCost" layoutX="146.0" layoutY="361.0" prefWidth="232.0" />
+    <Label layoutX="36.0" layoutY="241.0" text="Moc koparek:" />
+    <TextField fx:id="power" layoutX="145.0" layoutY="239.0" prefWidth="232.0" />
+    <Label layoutX="36.0" layoutY="277.0" text="Taryfa:" />
+    <TextField fx:id="powerCost" layoutX="145.0" layoutY="275.0" prefWidth="232.0" />
+    <Label layoutX="36.0" layoutY="313.0" text="Data początkowa:" />
+    <TextField fx:id="dateStart" layoutX="145.0" layoutY="311.0" prefWidth="232.0" />
+    <Separator layoutX="0.0" layoutY="407.0" prefWidth="419.0" />
+    <Button fx:id="saveButton" layoutX="306.0" layoutY="485.0" mnemonicParsing="false" prefWidth="72.0" text="Zapisz" />
+    <Label layoutX="36.0" layoutY="91.0" text="Waluta zysku:" />
+    <ChoiceBox fx:id="currency" layoutX="145.0" layoutY="91.0" prefWidth="232.0" />
+    <Label layoutX="36.0" layoutY="427.0" text="Odświeżanie (sek):" />
+    <TextField fx:id="refreshTime" layoutX="145.0" layoutY="425.0" prefWidth="232.0" />
+    <Separator layoutX="0.0" layoutY="464.0" prefWidth="419.0" />
   </children>
 </AnchorPane>
