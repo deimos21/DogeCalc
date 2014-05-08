@@ -13,8 +13,12 @@
   <children>
     <Pane id="toolbar-pane" layoutX="0.0" layoutY="0.0" prefHeight="34.0" prefWidth="415.0" style="-fx-background-color: &#10;        #011226,&#10;        linear-gradient(#011226, #173c6c),&#10;        linear-gradient(#011226 0%, #173c6c 100%);&#10;    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
       <children>
-        <Button id="settingsBt" layoutX="298.0" layoutY="4.0" mnemonicParsing="false" text="Ustawienia" />
-        <Button id="helpBt" layoutX="382.0" layoutY="4.0" mnemonicParsing="false" text="?" />
+        <Button id="settingsBt" alignment="CENTER" contentDisplay="CENTER" layoutX="314.0" layoutY="6.0" minHeight="15.630759375002526" mnemonicParsing="false" prefHeight="22.0" text="Ustawienia" textAlignment="CENTER">
+          <font>
+            <Font size="10.0" fx:id="x6" />
+          </font>
+        </Button>
+        <Button id="helpBt" alignment="CENTER" contentDisplay="CENTER" font="$x6" layoutX="385.0" layoutY="6.0" minHeight="15.0" mnemonicParsing="false" prefHeight="22.0" text="?" />
         <Label layoutX="64.0" layoutY="3.0" prefWidth="150.0" text="DogeCoin Calc" textFill="WHITE">
           <font>
             <Font name="Segoe Print" size="18.0" />
@@ -35,18 +39,18 @@
             <Font name="Segoe Print" size="12.0" fx:id="x1" />
           </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="14.0" prefWidth="415.0" text="3.245.385 DOGE" textAlignment="CENTER">
+        <Label id="ballanceL" alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="14.0" prefWidth="415.0" text="3.245.385 DOGE" textAlignment="CENTER">
           <font>
             <Font name="Verdana Bold" size="24.0" />
           </font>
         </Label>
         <Label font="$x1" layoutX="10.0" layoutY="62.0" text="Zarobek:" />
-        <Label alignment="CENTER" layoutX="0.0" layoutY="85.0" prefWidth="415.0" text="58.782,45 zł">
+        <Label id="profitMainL" alignment="CENTER" layoutX="0.0" layoutY="85.0" prefWidth="415.0" text="58.782,45 zł">
           <font>
             <Font name="Eras Demi ITC" size="58.0" />
           </font>
         </Label>
-        <Label alignment="CENTER" layoutX="35.0" layoutY="162.0" prefWidth="172.5" text="19.235,74 $">
+        <Label id="profit2L" alignment="CENTER" layoutX="35.0" layoutY="162.0" prefWidth="172.5" text="19.235,74 $">
           <font>
             <Font name="Verdana Italic" size="18.0" fx:id="x2" />
           </font>
@@ -54,20 +58,20 @@
             <Color blue="0.375" green="0.375" red="0.375" fx:id="x3" />
           </textFill>
         </Label>
-        <Label alignment="CENTER" font="$x2" layoutX="208.0" layoutY="162.0" prefWidth="172.5" text="14.356,08 €" textFill="$x3" />
+        <Label id="profit3L" alignment="CENTER" font="$x2" layoutX="208.0" layoutY="162.0" prefWidth="172.5" text="14.356,08 €" textFill="$x3" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x222222ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="2.0" layoutX="1.0" layoutY="199.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="415.0" />
         <Label font="$x1" layoutX="10.0" layoutY="206.0" text="Koszty prądu:" />
-        <Label alignment="CENTER" font="$x2" layoutX="2.0" layoutY="215.0" prefWidth="414.9999000000025" text="8.749,04 zł" textFill="#404040" />
+        <Label id="electricityCostL" alignment="CENTER" font="$x2" layoutX="2.0" layoutY="215.0" prefWidth="414.9999000000025" text="8.749,04 zł" textFill="#404040" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x222222ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="2.0" layoutX="0.0" layoutY="249.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="415.0" />
         <Label font="$x1" layoutX="10.0" layoutY="245.0" prefHeight="42.181640625" prefWidth="78.0" text="BTC/USD:" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x555555ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="95.0" layoutX="205.0" layoutY="251.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="2.0" />
         <Label font="$x1" layoutX="217.0" layoutY="245.0" prefHeight="42.181640625" prefWidth="78.0" text="DOGE/BTC:" />
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="277.0" prefWidth="203.0" text="673">
+        <Label id="btcusdL" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="277.0" prefWidth="203.0" text="673">
           <font>
             <Font name="Verdana Italic" size="46.0" fx:id="x4" />
           </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" font="$x4" layoutX="207.0" layoutY="277.0" prefWidth="203.00009999999747" text="308" />
+        <Label id="dogebtcL" alignment="CENTER" contentDisplay="CENTER" font="$x4" layoutX="207.0" layoutY="277.0" prefWidth="203.00009999999747" text="308" />
         <Label layoutX="360.0" layoutY="325.0" text="Satoshi">
           <font>
             <Font name="Verdana Italic" size="11.0" />
@@ -77,17 +81,17 @@
     </Pane>
     <Pane id="status-bar" layoutX="0.0" layoutY="381.0" prefHeight="20.9609375" prefWidth="415.0" style="-fx-background-color: #cccccc;&#10;    -fx-border-color: grey;&#10;    -fx-border-width: 1px 0 0 0;">
       <children>
-        <Circle fill="#10cc00" layoutX="15.0" layoutY="11.0" radius="7.0" stroke="#808080" strokeType="INSIDE" />
+        <Circle fill="#10cc00" layoutX="15.0" layoutY="11.0" radius="7.0" stroke="GREY" strokeType="INSIDE" />
         <AnchorPane id="AnchorPane" layoutX="31.0" layoutY="2.0">
           <children>
-            <Label layoutX="-2.0" layoutY="1.0" text="Połączenie aktywne">
+            <Label id="statusL" layoutX="-2.0" layoutY="1.0" text="Połączenie aktywne">
               <font>
                 <Font size="11.0" fx:id="x5" />
               </font>
             </Label>
           </children>
         </AnchorPane>
-        <Label font="$x5" layoutX="311.0" layoutY="3.0" text="Odświeżenie za: 4s" />
+        <Label id="refreshL" alignment="CENTER_RIGHT" contentDisplay="RIGHT" font="$x5" layoutX="311.0" layoutY="3.0" text="Odświeżenie za: 4s" textAlignment="RIGHT" />
       </children>
     </Pane>
   </children>

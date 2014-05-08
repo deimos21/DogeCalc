@@ -24,6 +24,8 @@ public class DogeCount {
     private Date dateStart;
     private double electricityCost;
     private double profit;
+    private double profit2;
+    private double profit3;
     private double balance;
     private boolean[] errorsCode;
     
@@ -61,13 +63,25 @@ public class DogeCount {
       
     private void countProfit(){
         switch (currency) {
-            case "USD":  profit = balance*priceDOGEBTC*priceBTCUSD-electricityCost;
+            case "USD":  
+                profit = balance*priceDOGEBTC*priceBTCUSD-electricityCost;
+                profit2 = profit*pricePLNUSD;
+                profit3 = profit/priceUSDEUR;
                 break;
-            case "PLN":  profit = balance*priceDOGEBTC*priceBTCUSD*pricePLNUSD-electricityCost;
+            case "PLN":  
+                profit = balance*priceDOGEBTC*priceBTCUSD*pricePLNUSD-electricityCost;
+                profit2 = profit/pricePLNUSD;
+                profit3 = profit2/priceUSDEUR;
                 break;
-            case "EUR":  profit = balance*priceDOGEBTC*priceBTCUSD/priceUSDEUR-electricityCost;
+            case "EUR":  
+                profit = balance*priceDOGEBTC*priceBTCUSD/priceUSDEUR-electricityCost;
+                profit2 = profit/priceUSDEUR;
+                profit3 = profit2/priceUSDEUR;
                 break;
-            default:     profit = balance*priceDOGEBTC*priceBTCUSD;
+            default:
+                profit = balance*priceDOGEBTC*priceBTCUSD*pricePLNUSD-electricityCost;
+                profit2 = profit/pricePLNUSD;
+                profit3 = profit2/priceUSDEUR;
         }
     }
     
@@ -208,6 +222,22 @@ public class DogeCount {
 
     public void setDd(DataDownloader dd) {
         this.dd = dd;
+    }
+
+    public double getProfit2() {
+        return profit2;
+    }
+
+    public void setProfit2(double profit2) {
+        this.profit2 = profit2;
+    }
+
+    public double getProfit3() {
+        return profit3;
+    }
+
+    public void setProfit3(double profit3) {
+        this.profit3 = profit3;
     }
     
     
