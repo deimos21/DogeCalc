@@ -3,59 +3,92 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="415.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <BorderPane layoutX="0.0" layoutY="0.0" minWidth="400.0" prefHeight="264.0" prefWidth="400.0">
-      <bottom>
-        <AnchorPane minHeight="79.0" minWidth="398.0" prefHeight="79.0" prefWidth="400.0" style="-fx-background-color:#dddddd;">
+    <Pane id="toolbar-pane" layoutX="0.0" layoutY="0.0" prefHeight="34.0" prefWidth="415.0" style="-fx-background-color: &#10;        #011226,&#10;        linear-gradient(#011226, #173c6c),&#10;        linear-gradient(#011226 0%, #173c6c 100%);&#10;    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+      <children>
+        <Button id="settingsBt" layoutX="298.0" layoutY="4.0" mnemonicParsing="false" text="Ustawienia" />
+        <Button id="helpBt" layoutX="382.0" layoutY="4.0" mnemonicParsing="false" text="?" />
+        <Label layoutX="64.0" layoutY="3.0" prefWidth="150.0" text="DogeCoin Calc" textFill="WHITE">
+          <font>
+            <Font name="Segoe Print" size="18.0" />
+          </font>
+        </Label>
+        <ImageView fitHeight="31.0" fitWidth="34.0" layoutX="15.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@img/shiba.png" />
+          </image>
+        </ImageView>
+      </children>
+    </Pane>
+    <Pane id="content-pane" layoutX="0.0" layoutY="35.0" prefHeight="346.0" prefWidth="415.0">
+      <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x222222ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="2.0" layoutX="0.0" layoutY="53.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="415.0" />
+        <Label layoutX="10.0" layoutY="6.0" text="Saldo:">
+          <font>
+            <Font name="Segoe Print" size="12.0" fx:id="x1" />
+          </font>
+        </Label>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="14.0" prefWidth="415.0" text="3.245.385 DOGE" textAlignment="CENTER">
+          <font>
+            <Font name="Verdana Bold" size="24.0" />
+          </font>
+        </Label>
+        <Label font="$x1" layoutX="10.0" layoutY="62.0" text="Zarobek:" />
+        <Label alignment="CENTER" layoutX="0.0" layoutY="85.0" prefWidth="415.0" text="58.782,45 zł">
+          <font>
+            <Font name="Eras Demi ITC" size="58.0" />
+          </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="35.0" layoutY="162.0" prefWidth="172.5" text="19.235,74 $">
+          <font>
+            <Font name="Verdana Italic" size="18.0" fx:id="x2" />
+          </font>
+          <textFill>
+            <Color blue="0.375" green="0.375" red="0.375" fx:id="x3" />
+          </textFill>
+        </Label>
+        <Label alignment="CENTER" font="$x2" layoutX="208.0" layoutY="162.0" prefWidth="172.5" text="14.356,08 €" textFill="$x3" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x222222ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="2.0" layoutX="1.0" layoutY="199.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="415.0" />
+        <Label font="$x1" layoutX="10.0" layoutY="206.0" text="Koszty prądu:" />
+        <Label alignment="CENTER" font="$x2" layoutX="2.0" layoutY="215.0" prefWidth="414.9999000000025" text="8.749,04 zł" textFill="#404040" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x222222ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="2.0" layoutX="0.0" layoutY="249.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="415.0" />
+        <Label font="$x1" layoutX="10.0" layoutY="245.0" prefHeight="42.181640625" prefWidth="78.0" text="BTC/USD:" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x555555ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="95.0" layoutX="205.0" layoutY="251.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="2.0" />
+        <Label font="$x1" layoutX="217.0" layoutY="245.0" prefHeight="42.181640625" prefWidth="78.0" text="DOGE/BTC:" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="277.0" prefWidth="203.0" text="673">
+          <font>
+            <Font name="Verdana Italic" size="46.0" fx:id="x4" />
+          </font>
+        </Label>
+        <Label alignment="CENTER" contentDisplay="CENTER" font="$x4" layoutX="207.0" layoutY="277.0" prefWidth="203.00009999999747" text="308" />
+        <Label layoutX="360.0" layoutY="325.0" text="Satoshi">
+          <font>
+            <Font name="Verdana Italic" size="11.0" />
+          </font>
+        </Label>
+      </children>
+    </Pane>
+    <Pane id="status-bar" layoutX="0.0" layoutY="381.0" prefHeight="20.9609375" prefWidth="415.0" style="-fx-background-color: #cccccc;&#10;    -fx-border-color: grey;&#10;    -fx-border-width: 1px 0 0 0;">
+      <children>
+        <Circle fill="#10cc00" layoutX="15.0" layoutY="11.0" radius="7.0" stroke="#808080" strokeType="INSIDE" />
+        <AnchorPane id="AnchorPane" layoutX="31.0" layoutY="2.0">
           <children>
-            <Line endX="274.0" endY="6.0" layoutX="125.0" layoutY="-4.0" startX="-124.0" startY="6.0" strokeWidth="1.8" />
-            <Line endX="10.0" endY="-36.0" layoutX="190.0" layoutY="40.0" startX="10.0" startY="40.0" />
-            <Label layoutX="14.0" layoutY="6.0" text="BTC/USD" />
-            <Label layoutX="211.0" layoutY="6.0" text="DOGE/BTC" />
-            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="2.0" prefHeight="67.0" prefWidth="201.0" text="431,58">
+            <Label layoutX="-2.0" layoutY="1.0" text="Połączenie aktywne">
               <font>
-                <Font size="32.0" fx:id="x1" />
+                <Font size="11.0" fx:id="x5" />
               </font>
             </Label>
-            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" font="$x1" layoutX="200.0" layoutY="0.0" prefHeight="68.0" prefWidth="197.0" text="135" />
           </children>
         </AnchorPane>
-      </bottom>
-      <left>
-        <AnchorPane prefHeight="117.0" prefWidth="397.0" style="-fx-background-color:#fff;">
-          <children>
-            <Label alignment="CENTER" layoutX="-1.0" layoutY="6.0" prefHeight="118.10000610351562" prefWidth="397.9000244140625" text="1245,00 zł" textAlignment="CENTER">
-              <font>
-                <Font name="System Bold Italic" size="55.0" />
-              </font>
-            </Label>
-          </children>
-        </AnchorPane>
-      </left>
-      <top>
-        <AnchorPane minHeight="60.0" minWidth="397.0" prefHeight="60.0" prefWidth="400.0000999999975" style="-fx-background-color:#85b9ff;&#10;">
-          <children>
-            <Line endX="275.0" endY="-1.0" layoutX="124.0" layoutY="60.0" startX="-124.0" startY="-1.0" strokeWidth="1.8" />
-            <Label layoutX="10.0" layoutY="10.0" text="Saldo:">
-              <font>
-                <Font size="16.0" />
-              </font>
-            </Label>
-            <Label fx:id="balanceLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="17.0" prefWidth="400.0" text="3163370.805975 DOGE" textAlignment="CENTER" textOverrun="ELLIPSIS">
-              <font>
-                <Font name="System Bold" size="20.0" />
-              </font>
-            </Label>
-            <Button fx:id="editButton" layoutX="376.0" layoutY="4.0" minHeight="13.0" minWidth="15.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="20.0" text="" />
-          </children>
-        </AnchorPane>
-      </top>
-    </BorderPane>
+        <Label font="$x5" layoutX="311.0" layoutY="3.0" text="Odświeżenie za: 4s" />
+      </children>
+    </Pane>
   </children>
 </AnchorPane>

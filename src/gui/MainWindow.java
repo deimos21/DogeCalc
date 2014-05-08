@@ -30,7 +30,7 @@ public class MainWindow extends Application {
            
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
 
-        Scene scene = new Scene(root, 390, 254);
+        Scene scene = new Scene(root, 405, 392);
 
         primaryStage.setResizable(false);
         primaryStage.setTitle("DogeCount");
@@ -39,7 +39,7 @@ public class MainWindow extends Application {
         
         final SettingsWindow sw = new SettingsWindow();
         
-        Button editButton = (Button) root.lookup("#editButton");
+        Button editButton = (Button) root.lookup("#settingsBt");
         if (editButton!=null) editButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
