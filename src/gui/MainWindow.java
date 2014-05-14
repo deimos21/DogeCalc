@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.DogeCount;
@@ -54,6 +55,15 @@ public class MainWindow extends Application {
         primaryStage.show();
         
         final SettingsWindow sw = new SettingsWindow();
+        
+        Font.loadFont(
+          MainWindow.class.getResource("/fonts/ERASDEMI.TTF").toExternalForm(), 
+          10
+        );
+        Font.loadFont(
+          MainWindow.class.getResource("/fonts/segoepr.ttf").toExternalForm(), 
+          10
+        );
         
         Button editButton = (Button) root.lookup("#settingsBt");
         if (editButton!=null) editButton.setOnAction(new EventHandler<ActionEvent>() {

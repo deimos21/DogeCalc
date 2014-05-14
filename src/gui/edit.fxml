@@ -6,7 +6,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import jfxtras.labs.scene.control.*?>
 <AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="419.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <Label layoutX="36.0" layoutY="28.0" text="Adres konta:" />

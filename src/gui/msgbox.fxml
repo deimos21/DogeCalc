@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="213.0" prefWidth="405.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Label id="messageL" alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="168.0" prefWidth="404.9999000000025" text="Label">
+      <font>
+        <Font size="16.0" />
+      </font>
+    </Label>
+    <Separator layoutX="0.0" layoutY="168.0" prefWidth="405.0" />
+    <Button id="okButton" layoutX="328.0" layoutY="180.0" mnemonicParsing="false" prefWidth="63.0" text="OK" />
+  </children>
+</AnchorPane>

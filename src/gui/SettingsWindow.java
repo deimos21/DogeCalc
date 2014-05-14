@@ -20,6 +20,7 @@ import javafx.stage.StageStyle;
 import model.DataDownloader;
 import model.Settings;
 import model.SettingsStorage;
+import model.Validator;
 
 /**
  *
@@ -29,6 +30,7 @@ public class SettingsWindow {
     
     private final Stage dialog;
     private final SettingsStorage ss;
+    private MessageBox mb;
     
     TextField addressAccountTF;
     ChoiceBox currencyCB;
@@ -49,6 +51,8 @@ public class SettingsWindow {
         Parent root = FXMLLoader.load(getClass().getResource("edit.fxml"));
         Scene sceneEdit = new Scene(root, 419, 525);
         dialog.setScene(sceneEdit);
+        
+        mb = new MessageBox();
         
         ss = new SettingsStorage();
         
@@ -91,7 +95,16 @@ public class SettingsWindow {
     private boolean saveSettings(){
         Settings sets = new Settings();
         
-        sets.setAddressAccount(addressAccountTF.getText());
+        //Validation
+        Validator validator = new Validator();
+        String errorsMsg="";
+        String resVal = validator.validate("address", addressAccountTF.getText());
+        if(resVal==null){
+            sets.setAddressAccount(addressAccountTF.getText());
+        }else{
+            errorsMsg += resVal+"\n";
+        }
+        
         sets.setCurrency(currencyCB.getValue().toString());
         sets.setBtcStock(btcStockCB.getValue().toString());
         sets.setDogeStock(dogeStockCB.getValue().toString());
@@ -118,10 +131,10 @@ public class SettingsWindow {
     private void loadSettings(){
         Settings sets = ss.deserialzeSettings();
         
-        addressAccountTF.setText(sets.getAddressAccount());
-        currencyCB.setValue(sets.getCurrency());
-        btcStockCB.setValue(sets.getBtcStock());
-        dogeStockCB.setValue(sets.getDogeStock());
+        if(sets.getAddressAccount()!=null)addressAccountTF.setText(sets.getAddressAccount());
+        if(sets.getCurrency()!=null)currencyCB.setValue(sets.getCurrency());
+        if(sets.getBtcStock()!=null)btcStockCB.setValue(sets.getBtcStock());
+        if(sets.getDogeStock()!=null)dogeStockCB.setValue(sets.getDogeStock());
         powerTF.setText(Double.toString(sets.getPower()));
         powerCostTF.setText(Double.toString(sets.getPowerCost()));
         //dateStartTF.setText(sets.getDateStart().toString());

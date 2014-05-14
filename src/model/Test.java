@@ -13,8 +13,8 @@ public class Test {
     public static void main(String[] args) {
         final Test test = new Test();
         //test.testDataDownloader();
-        //test.testDogeCount();
-        test.testSettingStorage();
+        test.testDogeCount();
+        //test.testSettingStorage();
 //        TimerTask task = new TimerTask() {
 //
 //            @Override

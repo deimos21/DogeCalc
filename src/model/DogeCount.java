@@ -1,9 +1,10 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,10 +30,17 @@ public class DogeCount {
     private double balance;
     private boolean[] errorsCode;
     
+    private int downloadCounter = 0;
+    
     private DataDownloader dd;
+    
+    static Logger logger = Logger.getLogger(DogeCount.class.getName());
 
     public DogeCount(){
         dd = new DataDownloader();
+        
+        logger.addHandler(new MyHandler());
+        
         
         accountAddress = "D7qiHYRU4Ti3h5CPipY5gpz94ZD1jPB3TH";
         
@@ -53,9 +61,16 @@ public class DogeCount {
         balance = dd.downloadAccountBalance(accountAddress);
         priceDOGEBTC = (double) dd.downloadPricesDoge().get(dogeStock);
         priceBTCUSD = (double) dd.downloadPricesBTC().get(btcStock);
-        HashMap priceCurrencies = dd.downloadPricesCurrencies();
-        pricePLNUSD = (double) priceCurrencies.get("PLN/USD");
-        priceUSDEUR = (double) priceCurrencies.get("USD/EUR");
+        
+        //PricesCurrencies download only 1/20 times
+        if(downloadCounter==0){
+            HashMap priceCurrencies = dd.downloadPricesCurrencies();
+            pricePLNUSD = (double) priceCurrencies.get("PLN/USD");
+            priceUSDEUR = (double) priceCurrencies.get("USD/EUR");
+        }
+        downloadCounter++;
+        if(downloadCounter==20)downloadCounter=0;
+        
         countElectricityCost();
         countProfit();
     }

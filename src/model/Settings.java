@@ -18,6 +18,10 @@ public class Settings implements Serializable{
     private boolean isConstElectricityCost;
     private double constElectricityCost;
     private int refreshTime;
+    
+    public Settings(){
+        
+    }
 
     public String getAddressAccount() {
         return addressAccount;

@@ -3,6 +3,7 @@ package model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,9 +30,10 @@ public class DataDownloader {
     String urlApiPricesCurrencies="https://kantor.aliorbank.pl/forex/json/current";
     
     int timeout = 6000;
+    String method = "GET";
     
     protected double downloadAccountBalance(String accountAddress){
-        String textFromApi = getHttpResponseText(urlApiAccountBalance+accountAddress, timeout);
+        String textFromApi = getHttpResponseText(urlApiAccountBalance+accountAddress, timeout, method, null);
         double balance = 0;
         if(textFromApi != null && !textFromApi.isEmpty()){
             balance = Double.parseDouble(textFromApi);
@@ -42,7 +44,7 @@ public class DataDownloader {
     protected HashMap downloadPricesBTC(){
         HashMap<String, Double> pricesBTC = new HashMap<>();
         
-        String jsonFromApi = getHttpResponseText(urlApiPricesBTC, timeout);
+        String jsonFromApi = getHttpResponseText(urlApiPricesBTC, timeout, method, null);
         
         JSONParser parser=new JSONParser();
         
@@ -84,7 +86,12 @@ public class DataDownloader {
         
         double priceDoge = 0;
         
-        String jsonFromApi = getHttpResponseText(urlApiPricesDoge, timeout);
+        String[][] params={
+            {"pairs","doge_btc"}
+        };
+        
+        String jsonFromApi = getHttpResponseText(urlApiPricesDoge, timeout, "POST", params);
+        
         
         JSONParser parser=new JSONParser();
         
@@ -113,7 +120,7 @@ public class DataDownloader {
     protected HashMap downloadPricesCurrencies(){
         HashMap<String, Double> pricesCurrencies = new HashMap<>();
         
-        String jsonFromApi = getHttpResponseText(urlApiPricesCurrencies, timeout);
+        String jsonFromApi = getHttpResponseText(urlApiPricesCurrencies, timeout, method, null);
         
         JSONParser parser=new JSONParser();
         
@@ -143,23 +150,42 @@ public class DataDownloader {
             pricesCurrencies.put("USD/EUR",usdeur);
             
         } catch (ParseException ex) {
-            Logger.getLogger(DataDownloader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return pricesCurrencies;
     }
     
-    private String getHttpResponseText(String url, int timeout) {
+    private String getHttpResponseText(String url, int timeout, String method, String[][]params) {
         try {
             URL u = new URL(url);
             HttpURLConnection c = (HttpURLConnection) u.openConnection();
-            c.setRequestMethod("GET");
-            c.setRequestProperty("Content-length", "0");
+            c.setRequestMethod(method);
+            
+            
+            
+            //
             c.setUseCaches(false);
             c.setAllowUserInteraction(false);
             c.setConnectTimeout(timeout);
             c.setReadTimeout(timeout);
-            c.connect();
+            
+            if(params!=null)if(params.length>0){
+                c.setDoInput(true);
+                c.setDoOutput(true);
+                c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                
+                OutputStreamWriter writer = new OutputStreamWriter(c.getOutputStream());
+                for(int i=0;i<params.length;i++){
+                    String postParms = params[0][0]+"="+params[0][1]+"&";
+                    writer.write(postParms);
+                }
+                writer.flush ();
+                writer.close ();
+            }else{
+                c.setRequestProperty("Content-length", "0");
+                c.connect();
+            }
             int status = c.getResponseCode();
 
             switch (status) {
@@ -174,6 +200,7 @@ public class DataDownloader {
                     br.close();
                     return sb.toString();
             }
+            c.disconnect();
 
         } catch (MalformedURLException ex) {
             Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, null, ex);
