@@ -31,7 +31,7 @@ public class SettingsStorage {
         if(!f.exists()) {
             try {
                 f.createNewFile();
-                Settings setts = new Settings();
+                Settings setts = new Settings(true);
                 serializeSettings(setts);
             } catch (IOException ex) {
                 Logger.getLogger(SettingsStorage.class.getName()).log(Level.SEVERE, null, ex);

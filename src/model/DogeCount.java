@@ -24,6 +24,10 @@ public class DogeCount {
     private double power;
     private Date dateStart;
     private double electricityCost;
+    private boolean isConstElectricityCost;
+    private double constElectricityCost;
+    private int refreshTime;
+    
     private double profit;
     private double profit2;
     private double profit3;
@@ -33,28 +37,36 @@ public class DogeCount {
     private int downloadCounter = 0;
     
     private DataDownloader dd;
+    private SettingsStorage ss;
     
-    static Logger logger = Logger.getLogger(DogeCount.class.getName());
+    public Logger logger = Logger.getLogger(DogeCount.class.getName());
 
     public DogeCount(){
         dd = new DataDownloader();
         
-        logger.addHandler(new MyHandler());
+        ss = new SettingsStorage();
+        
+        updateSettings();
         
         
-        accountAddress = "D7qiHYRU4Ti3h5CPipY5gpz94ZD1jPB3TH";
+    }
+    
+    public void updateSettings(){
+        Settings sets = ss.deserialzeSettings();
         
-        Calendar cal = Calendar.getInstance();
-        cal.set(2014, 01, 1); 
-        dateStart = cal.getTime();
+        accountAddress = sets.getAddressAccount();
+        currency = sets.getCurrency();
+        dogeStock = sets.getDogeStock();
+        btcStock = sets.getBtcStock();
+        power = sets.getPower();
+        powerCost = sets.getPowerCost();
+        dateStart=sets.getDateStart();
+        isConstElectricityCost = sets.isIsConstElectricityCost();
+        constElectricityCost = sets.getConstElectricityCost();
+        refreshTime = sets.getRefreshTime();
         
-        powerCost = 0.50;
-        power = 3500;
-        
-        dogeStock = "Cryptsy";
-        btcStock = "bitstamp";
-        currency = "PLN";
-        
+        countElectricityCost();
+        countProfit();
     }
     
     public void update(){
@@ -74,6 +86,7 @@ public class DogeCount {
         countElectricityCost();
         countProfit();
     }
+    
     
       
     private void countProfit(){
@@ -108,6 +121,7 @@ public class DogeCount {
         double hours = ((now.getTime() - dateStart.getTime())/(1000*60*60));
         electricityCost = hours * powerCost * power/1000;
     }
+    
 
     //_________________________________________________________________
     //Setters and Getters
@@ -253,6 +267,22 @@ public class DogeCount {
 
     public void setProfit3(double profit3) {
         this.profit3 = profit3;
+    }
+
+    public SettingsStorage getSs() {
+        return ss;
+    }
+
+    public boolean isIsConstElectricityCost() {
+        return isConstElectricityCost;
+    }
+
+    public double getConstElectricityCost() {
+        return constElectricityCost;
+    }
+
+    public int getRefreshTime() {
+        return refreshTime;
     }
     
     

@@ -56,11 +56,12 @@ public class SettingsWindow {
     CheckBox isConstElectricityCostCB;
     TextField constElectricityCostTF;
     TextField refreshTimeTF;
+    protected Button saveButton;
     
     public boolean updateLock=false;
     
     
-    public SettingsWindow() throws IOException{
+    public SettingsWindow(SettingsStorage ss) throws IOException{
         dialog = new Stage();
         dialog.initStyle(StageStyle.UTILITY);
         dialog.setResizable(false);
@@ -71,7 +72,7 @@ public class SettingsWindow {
         
         mb = new MessageBox();
         
-        ss = new SettingsStorage();
+        this.ss = ss;
         
         addressAccountTF = (TextField) root.lookup("#addressAccount");
         currencyCB = (ChoiceBox) root.lookup("#currency");
@@ -84,26 +85,17 @@ public class SettingsWindow {
         constElectricityCostTF = (TextField) root.lookup("#constElectricityCost");
         refreshTimeTF = (TextField) root.lookup("#refreshTime");
         
-        currencyCB.setItems(FXCollections.observableArrayList(DataDownloader.getAvaliableCurrencies()));
-        currencyCB.setValue(DataDownloader.getAvaliableCurrencies().get(0));
-        dogeStockCB.setItems(FXCollections.observableArrayList(DataDownloader.getAvaliableDogeStocks()));
-        dogeStockCB.setValue(DataDownloader.getAvaliableDogeStocks().get(0));
-        btcStockCB.setItems(FXCollections.observableArrayList(DataDownloader.getAvaliableBtcStocks()));
-        btcStockCB.setValue(DataDownloader.getAvaliableBtcStocks().get(0));
+        currencyCB.setItems(FXCollections.observableArrayList(DataDownloader.getAvailableCurrencies()));
+        currencyCB.setValue(DataDownloader.getAvailableCurrencies().get(0));
+        dogeStockCB.setItems(FXCollections.observableArrayList(DataDownloader.getAvailableDogeStocks()));
+        dogeStockCB.setValue(DataDownloader.getAvailableDogeStocks().get(0));
+        btcStockCB.setItems(FXCollections.observableArrayList(DataDownloader.getAvailableBtcStocks()));
+        btcStockCB.setValue(DataDownloader.getAvailableBtcStocks().get(0));
         
         loadSettings();
         
-        Button saveButton = (Button) root.lookup("#saveButton");
-        if (saveButton!=null) saveButton.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                if(saveSettings()){
-                    updateLock=false;
-                    dialog.close();
-                }
-            }
-        });
+        saveButton = (Button) root.lookup("#saveButton");
+        
         
         dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -145,7 +137,7 @@ public class SettingsWindow {
         return dialog;
     }
         
-    private boolean saveSettings(){
+    protected boolean saveSettings(){
         Settings sets = new Settings();
         
         //Validation
@@ -202,15 +194,12 @@ public class SettingsWindow {
         
         ss.serializeSettings(sets);
         
-        
-        if(errorsMsg==""){
+        if("".equals(errorsMsg)){
             return true;
         }else{
             mb.show(errorsMsg);
             return false;
         }
-        
-        
     }
     
     private void loadSettings(){

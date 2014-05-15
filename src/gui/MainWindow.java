@@ -17,10 +17,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.DogeCount;
+import model.ErrorsHandler;
 
 /**
  *
@@ -39,13 +42,14 @@ public class MainWindow extends Application {
     private Label dogebtcL;
     private Label statusL;
     private Label refreshL;
-    
-    
+    private Circle infoDotC;
     
     @Override
     public void start(Stage primaryStage) throws IOException {
         
         dc = new DogeCount();
+        
+        
            
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
 
@@ -56,7 +60,6 @@ public class MainWindow extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         
-        final SettingsWindow sw = new SettingsWindow();
         
         Font.loadFont(
           MainWindow.class.getResource("/fonts/ERASDEMI.TTF").toExternalForm(), 
@@ -67,6 +70,8 @@ public class MainWindow extends Application {
           10
         );
         
+        final SettingsWindow sw = new SettingsWindow(dc.getSs());
+        sw.getDialog().initOwner(primaryStage);
         
         Button editButton = (Button) root.lookup("#settingsBt");
         if (editButton!=null) editButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -95,22 +100,28 @@ public class MainWindow extends Application {
         dogebtcL = (Label) root.lookup("#dogebtcL");
         statusL = (Label) root.lookup("#statusL");
         refreshL = (Label) root.lookup("#refreshL");
+        infoDotC = (Circle) root.lookup("#infoDot");
         
-        final int refreshTime = 10;
+        dc.logger.addHandler(new ErrorsHandler(statusL,infoDotC));
+        
         
         TimerTask task = new TimerTask() {
-            int timeDown=refreshTime;
+            int timeDown=dc.getRefreshTime();
+            int refreshTime=timeDown;
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         if(!sw.updateLock)
                             if(timeDown==0){
+                                infoDotC.setFill(Color.LIMEGREEN);
                                 refreshL.setText("AKTUALIZACJA");
+                                statusL.setText("Połaczenie aktywne");
                                 update();
                                 String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
                                 System.out.println("AKTUALIZACJA "+timeStamp);
-                                timeDown=refreshTime;
+                                timeDown=dc.getRefreshTime();
+                                
                             }else{
                                 refreshL.setText("Odświeżanie za: "+timeDown+"s");
                                 timeDown--;
@@ -131,11 +142,32 @@ public class MainWindow extends Application {
             }
         });  
         
+        if (sw.saveButton!=null) sw.saveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(sw.saveSettings()){
+                    sw.updateLock=false;
+                    sw.getDialog().close();
+                    updateSettings();
+                }
+            }
+        });
              
     }
     
     private void update(){
         dc.update();
+        ballanceL.setText(formatter(dc.getBalance(),"doge"));
+        profitMainL.setText(formatter(dc.getProfit(),"zl"));
+        profit2L.setText(formatter(dc.getProfit2(),"dolar"));
+        profit3L.setText(formatter(dc.getProfit3(),"euro"));
+        electricityCostL.setText(formatter(dc.getElectricityCost(),"zl"));
+        btcusdL.setText(formatter(dc.getPriceBTCUSD(),"btc"));
+        dogebtcL.setText(formatter(dc.getPriceDOGEBTC(),"satoshi"));
+    }
+    
+    private void updateSettings(){
+        dc.updateSettings();
         ballanceL.setText(formatter(dc.getBalance(),"doge"));
         profitMainL.setText(formatter(dc.getProfit(),"zl"));
         profit2L.setText(formatter(dc.getProfit2(),"dolar"));

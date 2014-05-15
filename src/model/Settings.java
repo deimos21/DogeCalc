@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -22,6 +23,22 @@ public class Settings implements Serializable{
     public Settings(){
         
     }
+    public Settings(boolean firstRun){
+        if(firstRun){
+            addressAccount="";
+            currency=(String)DataDownloader.getAvailableCurrencies().get(0);
+            dogeStock=(String)DataDownloader.getAvailableDogeStocks().get(0);
+            btcStock=(String)DataDownloader.getAvailableBtcStocks().get(0);
+            power=0;
+            powerCost=0;
+            Calendar cal = Calendar.getInstance();
+            dateStart = cal.getTime();
+            isConstElectricityCost=false;
+            constElectricityCost=0;
+            refreshTime=10;
+        }
+    }
+
 
     public String getAddressAccount() {
         return addressAccount;
