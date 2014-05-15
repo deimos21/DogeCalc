@@ -1,6 +1,9 @@
 package model;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -14,48 +17,67 @@ public class Validator {
         String errorMsg = null;
         switch (type){
             case "address":
-                if(value.getClass().equals(Type.String)){
+                if(value!=null){
                     String address = (String) value;
                     if(address.length()!=34){
                         errorMsg = "Podany adres konta ma niepoprawną długość";
                     }
                 }else{
-                    errorMsg = "Podana adres konta nie jest wartością tekstową";
+                    errorMsg = "Adres konta nie może być pusty";
                 }
             break;
             case "power":
-                double power = (double) value;
-                if(power<0){
-                    errorMsg = "Podana wartośc mocy jest niepoprawna";
+                try{
+                    double power = Double.parseDouble((String) value);
+                    if(power<0){
+                        errorMsg = "Podana wartośc mocy nie może być ujemnna";
+                    }
+                }catch(NumberFormatException e){
+                  errorMsg = "Podana wartośc mocy jest niepoprawna";
                 }
+                
             break;
             case "powerCost":
-                double powerCost = (double) value;
-                if(powerCost<0){
+                try{
+                    double powerCost = Double.parseDouble((String) value);
+                    if(powerCost<0){
+                        errorMsg = "Podana wartośc taryfy nie może być ujemnna";
+                    }
+                }catch(NumberFormatException e){
                     errorMsg = "Podana wartośc taryfy jest niepoprawna";
                 }
             break; 
             case "dateStart":
-                if(value.getClass().equals(Date.class)){
-                    Date dateStart = (Date) value;
+                try{
+                    LocalDate lDate = (LocalDate) value;
+                    Instant instant = lDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+                    Date dateStart = Date.from(instant);
                     Date obecna = new Date();
-                    if(obecna.getTime()-dateStart.getTime()>0){
+                    if(obecna.getTime()-dateStart.getTime()<=0){
                         errorMsg = "Podana data jest datą z przyszłości";
                     }
-                }else{
-                    errorMsg = "Podana data początkowa jest niepoprawna";
+                }catch(NumberFormatException e){
+                    errorMsg = "Podana data startowa jest niepoprawna";
                 }
             break;
             case "constCost":
-                double constCost = (double) value;
-                if(constCost<0){
-                    errorMsg = "Podana wartośc stałych kosztów pradu jest niepoprawna";
+                try{
+                    double constCost = Double.parseDouble((String) value);
+                    if(constCost<0){
+                        errorMsg = "Podana wartośc stałych kosztów prądu nie może być ujemnna";
+                    }
+                }catch(NumberFormatException e){
+                    errorMsg = "Podana wartośc stałych kosztów prądu jest niepoprawna";
                 }
             break; 
             case "updateTime":
-                double updateTime = (int) value;
-                if(updateTime<0){
-                    errorMsg = "Podana wartość odświeżania jest niepoprawna";
+                try{
+                    int updateTime = Integer.parseInt((String)value);
+                    if(updateTime<2){
+                        errorMsg = "Podany czas odświeżania musi być większy od 1";
+                    }
+                }catch(NumberFormatException e){
+                    errorMsg = "Podany czas odświeżania jest niepoprawny";
                 }
             break; 
             default:

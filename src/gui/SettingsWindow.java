@@ -1,10 +1,22 @@
 package gui;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,9 +26,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import model.DataDownloader;
 import model.Settings;
 import model.SettingsStorage;
@@ -38,10 +52,13 @@ public class SettingsWindow {
     ChoiceBox btcStockCB;
     TextField powerTF;
     TextField powerCostTF;
-    TextField dateStartTF;
+    DatePicker dateStartTF;
     CheckBox isConstElectricityCostCB;
     TextField constElectricityCostTF;
     TextField refreshTimeTF;
+    
+    public boolean updateLock=false;
+    
     
     public SettingsWindow() throws IOException{
         dialog = new Stage();
@@ -62,7 +79,7 @@ public class SettingsWindow {
         btcStockCB = (ChoiceBox) root.lookup("#btcStock");
         powerTF = (TextField) root.lookup("#power");
         powerCostTF = (TextField) root.lookup("#powerCost");
-        dateStartTF = (TextField) root.lookup("#dateStart");
+        dateStartTF = (DatePicker) root.lookup("#dateStart");
         isConstElectricityCostCB = (CheckBox) root.lookup("#isConstElectricityCost");
         constElectricityCostTF = (TextField) root.lookup("#constElectricityCost");
         refreshTimeTF = (TextField) root.lookup("#refreshTime");
@@ -82,7 +99,43 @@ public class SettingsWindow {
             @Override
             public void handle(ActionEvent event) {
                 if(saveSettings()){
+                    updateLock=false;
                     dialog.close();
+                }
+            }
+        });
+        
+        dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent we) {
+                updateLock=false;
+            }
+        });  
+        
+        dialog.setOnShowing(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent we) {
+                updateLock=true;
+            }
+        });  
+        
+        isConstElectricityCostCB.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+                if(t){
+                    powerTF.setDisable(false);
+                    powerCostTF.setDisable(false);
+                    dateStartTF.setDisable(false);
+                    
+                    constElectricityCostTF.setDisable(true);
+                }
+                if(t1){
+                    powerTF.setDisable(true);
+                    powerCostTF.setDisable(true);
+                    dateStartTF.setDisable(true);
+                    
+                    constElectricityCostTF.setDisable(false);
+                    
                 }
             }
         });
@@ -104,28 +157,60 @@ public class SettingsWindow {
         }else{
             errorsMsg += resVal+"\n";
         }
-        
         sets.setCurrency(currencyCB.getValue().toString());
         sets.setBtcStock(btcStockCB.getValue().toString());
         sets.setDogeStock(dogeStockCB.getValue().toString());
-        sets.setPower(Double.parseDouble(powerCostTF.getText()));
-        sets.setPowerCost(Double.parseDouble(powerCostTF.getText()));
         
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-	String dateInString = dateStartTF.getText();
-        try {
-            sets.setDateStart(formatter.parse(dateInString));
-        } catch (ParseException ex) {
-            Logger.getLogger(SettingsWindow.class.getName()).log(Level.SEVERE, null, ex);
+        resVal = validator.validate("power", powerTF.getText());
+        if(resVal==null){
+            sets.setPower(Double.parseDouble(powerTF.getText()));
+        }else{
+            errorsMsg += resVal+"\n";
+        }
+        
+        resVal = validator.validate("powerCost", powerCostTF.getText());
+        if(resVal==null){
+            sets.setPowerCost(Double.parseDouble(powerCostTF.getText()));
+        }else{
+            errorsMsg += resVal+"\n";
+        }
+        
+        resVal = validator.validate("dateStart", dateStartTF.getValue());
+        if(resVal==null){
+            LocalDate lDate = dateStartTF.getValue();
+            Instant instant = lDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+            sets.setDateStart(Date.from(instant));
+        }else{
+            errorsMsg += resVal+"\n";
+        }
+        
+        resVal = validator.validate("constCost", constElectricityCostTF.getText());
+        if(resVal==null){
+            sets.setConstElectricityCost(Double.parseDouble(constElectricityCostTF.getText()));
+        }else{
+            errorsMsg += resVal+"\n";
         }
         
         sets.setIsConstElectricityCost(isConstElectricityCostCB.isSelected());
-        sets.setConstElectricityCost(Double.parseDouble(constElectricityCostTF.getText()));
-        sets.setRefreshTime(Integer.parseInt(refreshTimeTF.getText()));
+       
+        resVal = validator.validate("updateTime", refreshTimeTF.getText());
+        if(resVal==null){
+            sets.setRefreshTime(Integer.parseInt(refreshTimeTF.getText()));
+        }else{
+            errorsMsg += resVal+"\n";
+        }
         
         ss.serializeSettings(sets);
         
-        return true;
+        
+        if(errorsMsg==""){
+            return true;
+        }else{
+            mb.show(errorsMsg);
+            return false;
+        }
+        
+        
     }
     
     private void loadSettings(){
@@ -136,10 +221,25 @@ public class SettingsWindow {
         if(sets.getBtcStock()!=null)btcStockCB.setValue(sets.getBtcStock());
         if(sets.getDogeStock()!=null)dogeStockCB.setValue(sets.getDogeStock());
         powerTF.setText(Double.toString(sets.getPower()));
-        powerCostTF.setText(Double.toString(sets.getPowerCost()));
-        //dateStartTF.setText(sets.getDateStart().toString());
+        
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRANCE);
+        otherSymbols.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("#0.00", otherSymbols);
+        
+        powerCostTF.setText(df.format(sets.getPowerCost()));
+        if(sets.getDateStart()!=null){
+            Instant instant = Instant.ofEpochMilli(sets.getDateStart().getTime());
+            dateStartTF.setValue(LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate());
+        }
         isConstElectricityCostCB.setSelected(sets.isIsConstElectricityCost());
-        constElectricityCostTF.setText(Double.toString(sets.getConstElectricityCost()));
+        if(sets.isIsConstElectricityCost()){
+            powerTF.setDisable(true);
+            powerCostTF.setDisable(true);
+            dateStartTF.setDisable(true);
+
+            constElectricityCostTF.setDisable(false);
+        }
+        constElectricityCostTF.setText(df.format(sets.getConstElectricityCost()));
         refreshTimeTF.setText(Integer.toString(sets.getRefreshTime()));
     }
 }

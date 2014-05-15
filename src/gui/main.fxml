@@ -91,7 +91,7 @@
             </Label>
           </children>
         </AnchorPane>
-        <Label id="refreshL" alignment="CENTER_RIGHT" contentDisplay="RIGHT" font="$x5" layoutX="311.0" layoutY="3.0" text="Odświeżenie za: 4s" textAlignment="RIGHT" />
+        <Label id="refreshL" alignment="CENTER_RIGHT" contentDisplay="RIGHT" font="$x5" layoutX="300.0" layoutY="3.0" text="Odświeżenie za: 4s" textAlignment="RIGHT" />
       </children>
     </Pane>
   </children>

@@ -40,6 +40,8 @@ public class MainWindow extends Application {
     private Label statusL;
     private Label refreshL;
     
+    
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
         
@@ -64,6 +66,7 @@ public class MainWindow extends Application {
           MainWindow.class.getResource("/fonts/segoepr.ttf").toExternalForm(), 
           10
         );
+        
         
         Button editButton = (Button) root.lookup("#settingsBt");
         if (editButton!=null) editButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -101,30 +104,33 @@ public class MainWindow extends Application {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        if(timeDown==0){
-                            refreshL.setText("AKTUALIZACJA");
-                            update();
-                            String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-                            System.out.println("AKTUALIZACJA "+timeStamp);
-                            timeDown=refreshTime;
-                        }else{
-                            refreshL.setText("Odświeżanie za: "+timeDown+"s");
-                            timeDown--;
-                        }
+                        if(!sw.updateLock)
+                            if(timeDown==0){
+                                refreshL.setText("AKTUALIZACJA");
+                                update();
+                                String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+                                System.out.println("AKTUALIZACJA "+timeStamp);
+                                timeDown=refreshTime;
+                            }else{
+                                refreshL.setText("Odświeżanie za: "+timeDown+"s");
+                                timeDown--;
+                            }
                     }
                 });
             }
         };
-        final Timer timer = new Timer();
+        Timer timer = new Timer();
         timer.schedule(task, 0, 1*1000);
         
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent we) {
                 timer.cancel();
+                sw.getDialog().close();
                 System.out.println("Goodbye");
             }
         });  
+        
              
     }
     

@@ -6,8 +6,8 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import jfxtras.labs.scene.control.*?>
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="419.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <Label layoutX="36.0" layoutY="28.0" text="Adres konta:" />
     <TextField fx:id="addressAccount" layoutX="145.0" layoutY="28.0" prefWidth="232.0" />
@@ -18,13 +18,13 @@
     <ChoiceBox fx:id="btcStock" layoutX="146.0" layoutY="166.0" prefWidth="232.0" />
     <Separator layoutX="0.0" layoutY="213.0" prefWidth="419.0" />
     <CheckBox fx:id="isConstElectricityCost" layoutX="36.0" layoutY="363.0" mnemonicParsing="false" text="Stała kwota" />
-    <TextField fx:id="constElectricityCost" layoutX="146.0" layoutY="361.0" prefWidth="232.0" />
+    <TextField fx:id="constElectricityCost" disable="true" layoutX="145.0" layoutY="360.0" prefWidth="232.0" />
     <Label layoutX="36.0" layoutY="241.0" text="Moc koparek:" />
     <TextField fx:id="power" layoutX="145.0" layoutY="239.0" prefWidth="232.0" />
     <Label layoutX="36.0" layoutY="277.0" text="Taryfa:" />
     <TextField fx:id="powerCost" layoutX="145.0" layoutY="275.0" prefWidth="232.0" />
     <Label layoutX="36.0" layoutY="313.0" text="Data początkowa:" />
-    <TextField fx:id="dateStart" layoutX="145.0" layoutY="311.0" prefWidth="232.0" />
+    <DatePicker fx:id="dateStart" layoutX="145.0" layoutY="311.0" prefWidth="232.0" />
     <Separator layoutX="0.0" layoutY="407.0" prefWidth="419.0" />
     <Button fx:id="saveButton" layoutX="306.0" layoutY="485.0" mnemonicParsing="false" prefWidth="72.0" text="Zapisz" />
     <Label layoutX="36.0" layoutY="91.0" text="Waluta zysku:" />
