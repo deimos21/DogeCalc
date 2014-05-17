@@ -220,8 +220,9 @@ public class DataDownloader {
     public static ArrayList getAvailableCurrencies(){
         ArrayList<String> currencies = new ArrayList();
         currencies.add("PLN");
-        currencies.add("USD");
-        currencies.add("EUR");
+        // TODO in future
+        //currencies.add("USD");
+        //currencies.add("EUR");
         
         return currencies;
     }

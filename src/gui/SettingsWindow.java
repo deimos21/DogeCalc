@@ -50,6 +50,8 @@ public class SettingsWindow {
     TextField powerCostTF;
     DatePicker dateStartTF;
     CheckBox isConstElectricityCostCB;
+    CheckBox isConstBallance;
+    TextField constBallance;
     TextField constElectricityCostTF;
     TextField refreshTimeTF;
     protected Button saveButton;
@@ -63,7 +65,7 @@ public class SettingsWindow {
         dialog.setResizable(false);
         dialog.setTitle("Ustawienia");
         Parent root = FXMLLoader.load(getClass().getResource("edit.fxml"));
-        Scene sceneEdit = new Scene(root, 419, 525);
+        Scene sceneEdit = new Scene(root);
         dialog.setScene(sceneEdit);
         
         mb = new MessageBox();
@@ -80,7 +82,9 @@ public class SettingsWindow {
         powerCostTF = (TextField) root.lookup("#powerCost");
         dateStartTF = (DatePicker) root.lookup("#dateStart");
         isConstElectricityCostCB = (CheckBox) root.lookup("#isConstElectricityCost");
+        isConstBallance = (CheckBox) root.lookup("#isConstBallance");
         constElectricityCostTF = (TextField) root.lookup("#constElectricityCost");
+        constBallance = (TextField) root.lookup("#constBallance");
         refreshTimeTF = (TextField) root.lookup("#refreshTime");
         
         currencyCB.setItems(FXCollections.observableArrayList(DataDownloader.getAvailableCurrencies()));
@@ -129,6 +133,22 @@ public class SettingsWindow {
                 }
             }
         });
+        
+        isConstBallance.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+                if(t){
+                    addressAccountTF.setDisable(false);
+                    
+                    constBallance.setDisable(true);
+                }
+                if(t1){
+                    addressAccountTF.setDisable(true);
+                    
+                    constBallance.setDisable(false);
+                }
+            }
+        });
     }
 
     public Stage getDialog() {
@@ -137,16 +157,26 @@ public class SettingsWindow {
         
     protected boolean saveSettings(){
         Settings sets = new Settings();
-        
+        String resVal;
         //Validation
         Validator validator = new Validator();
         String errorsMsg="";
-        String resVal = validator.validate("address", addressAccountTF.getText());
-        if(resVal==null){
-            sets.setAddressAccount(addressAccountTF.getText());
+        if(isConstBallance.isSelected()){
+            resVal = validator.validate("constBalance", constBallance.getText());
+            if(resVal==null){
+                sets.setConstBallance(Double.parseDouble(constBallance.getText()));
+            }else{
+                errorsMsg += resVal+"\n";
+            }
         }else{
-            errorsMsg += resVal+"\n";
+            resVal = validator.validate("address", addressAccountTF.getText());
+            if(resVal==null){
+                sets.setAddressAccount(addressAccountTF.getText());
+            }else{
+                errorsMsg += resVal+"\n";
+            }
         }
+        sets.setIsConstBallance(isConstBallance.isSelected());
         sets.setCurrency(currencyCB.getValue().toString());
         sets.setBtcStock(btcStockCB.getValue().toString());
         sets.setDogeStock(dogeStockCB.getValue().toString());
@@ -204,6 +234,12 @@ public class SettingsWindow {
         Settings sets = ss.deserialzeSettings();
         
         if(sets.getAddressAccount()!=null)addressAccountTF.setText(sets.getAddressAccount());
+        constBallance.setText(Double.toString(sets.getConstBallance()));
+        isConstBallance.setSelected(sets.isIsConstBallance());
+        if(sets.isIsConstBallance()){
+            addressAccountTF.setDisable(true);
+            constBallance.setDisable(false);
+        }
         if(sets.getCurrency()!=null)currencyCB.setValue(sets.getCurrency());
         if(sets.getBtcStock()!=null)btcStockCB.setValue(sets.getBtcStock());
         if(sets.getDogeStock()!=null)dogeStockCB.setValue(sets.getDogeStock());

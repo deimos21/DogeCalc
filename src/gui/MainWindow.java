@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
@@ -45,6 +47,8 @@ public class MainWindow extends Application {
     private Label dogebtcL;
     private Label statusL;
     private Label refreshL;
+    private Label btcStockName;
+    private Label dogeStockName;
     private Circle infoDotC;
     
     private void preload(Stage primaryStage) throws IOException{
@@ -53,10 +57,18 @@ public class MainWindow extends Application {
         Scene scenePreloader = new Scene(preloader);
         primaryStage.setScene(scenePreloader);
         
+        Font.loadFont(MainWindow.class.getResource("/fonts/ERASDEMI.TTF").toExternalForm(), 10);
+        Font.loadFont(MainWindow.class.getResource("/fonts/segoepr.ttf").toExternalForm(),10);
+        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        
+        final Scene sceneRoot = new Scene(root);
+        
         final ProgressBar pb = (ProgressBar) preloader.lookup("#progressBar");
         final Label info = (Label) preloader.lookup("#info");
         
         IntegerProperty progressLoad = new SimpleIntegerProperty(0);
+        
+        primaryStage.show();
         
         progressLoad.addListener(new ChangeListener(){
             @Override public void changed(ObservableValue o,Object oldVal, 
@@ -64,26 +76,38 @@ public class MainWindow extends Application {
                  switch((int)newVal){
                      case 5:
                          info.setText("Ładowanie pliku ustawień");
+                         System.out.print("Ładowanie pliku ustawień ");
                      break;
                      case 15:
                          info.setText("Ładowanie ustawień");
+                         System.out.print("Ładowanie ustawień ");
                      break;
                      case 20:
                          info.setText("Budowanie głównego interfejsu");
+                         System.out.print("Budowanie głównego interfejsu ");
                      break;
                      case 30:
                          info.setText("Pobieranie aktualnych kursów");
+                         System.out.print("Pobieranie aktualnych kursów ");
                      break;
                      case 70:
                          info.setText("Uruchamianie aplikacji");
+                         System.out.print("Uruchamianie aplikacji ");
+                     break;
+                     case 100:
+                         Platform.runLater(() -> {
+                             primaryStage.setScene(sceneRoot);
+                            });
+                         
                      break;
                  }
+                 
                  pb.setProgress((double)((int)newVal)/100);
-                 System.out.println((double)((int)newVal)+"%");
+                 System.out.println(pb.getProgress()*100+"%");
             }
         });
         
-        primaryStage.show();
+        
         
         dc = new DogeCount();
                 
@@ -95,13 +119,7 @@ public class MainWindow extends Application {
         });
         
         dc.init();
-        
-        Font.loadFont(MainWindow.class.getResource("/fonts/ERASDEMI.TTF").toExternalForm(), 10);
-        Font.loadFont(MainWindow.class.getResource("/fonts/segoepr.ttf").toExternalForm(),10);
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-        
-        Scene sceneRoot = new Scene(root);
-        
+                
         //PROGRESSS 
         progressLoad.set(25);
         
@@ -118,6 +136,8 @@ public class MainWindow extends Application {
         statusL = (Label) root.lookup("#statusL");
         refreshL = (Label) root.lookup("#refreshL");
         infoDotC = (Circle) root.lookup("#infoDot");
+        btcStockName = (Label) root.lookup("#btcStockName");
+        dogeStockName = (Label) root.lookup("#dogeStockName");
         
         Button helpButton = (Button) root.lookup("#helpBt");
         if (helpButton!=null) helpButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -161,6 +181,7 @@ public class MainWindow extends Application {
                                 refreshL.setText("AKTUALIZACJA");
                                 statusL.setText("Połaczenie aktywne");
                                 update();
+                                blinkControl();
                                 String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
                                 System.out.println("AKTUALIZACJA "+timeStamp);
                                 timeDown=dc.getRefreshTime();
@@ -175,6 +196,9 @@ public class MainWindow extends Application {
         };
         Timer timer = new Timer();
         timer.schedule(task, 0, 1*1000);
+        
+        btcStockName.setText("BTC/USD ("+dc.getBtcStock()+")");
+        dogeStockName.setText("DOGE/BTC ("+dc.getDogeStock()+")");
         
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -201,110 +225,12 @@ public class MainWindow extends Application {
         //PROGRESSS 
         progressLoad.set(100);
         
-        primaryStage.setScene(sceneRoot);
+        
     }
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        
         preload(primaryStage);
-        
-//        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-//
-//        Scene scene = new Scene(root);
-
-//        primaryStage.setResizable(false);
-//        primaryStage.setTitle("DogeCount");
-//        primaryStage.setScene(scene);
-        //primaryStage.show();
-        
-        
-//        Font.loadFont(MainWindow.class.getResource("/fonts/ERASDEMI.TTF").toExternalForm(), 10);
-//        Font.loadFont(MainWindow.class.getResource("/fonts/segoepr.ttf").toExternalForm(),10);
-        
-//        final SettingsWindow sw = new SettingsWindow(dc.getSs());
-//        sw.getDialog().initOwner(primaryStage);
-//        
-//        Button editButton = (Button) root.lookup("#settingsBt");
-//        if (editButton!=null) editButton.setOnAction(new EventHandler<ActionEvent>() {
-//
-//            @Override
-//            public void handle(ActionEvent event) {
-//                sw.getDialog().show();
-//            }
-//        });
-        
-//        Button helpButton = (Button) root.lookup("#helpBt");
-//        if (helpButton!=null) helpButton.setOnAction(new EventHandler<ActionEvent>() {
-//
-//            @Override
-//            public void handle(ActionEvent event) {
-//                //TODO
-//            }
-//        });
-        
-//        ballanceL = (Label) root.lookup("#ballanceL");
-//        profitMainL = (Label) root.lookup("#profitMainL");
-//        profit2L = (Label) root.lookup("#profit2L");
-//        profit3L = (Label) root.lookup("#profit3L");
-//        electricityCostL = (Label) root.lookup("#electricityCostL");
-//        btcusdL = (Label) root.lookup("#btcusdL");
-//        dogebtcL = (Label) root.lookup("#dogebtcL");
-//        statusL = (Label) root.lookup("#statusL");
-//        refreshL = (Label) root.lookup("#refreshL");
-//        infoDotC = (Circle) root.lookup("#infoDot");
-        
-//        dc.logger.addHandler(new ErrorsHandler(statusL,infoDotC));
-        
-        
-//        TimerTask task = new TimerTask() {
-//            int timeDown=dc.getRefreshTime();
-//            int refreshTime=timeDown;
-//            @Override
-//            public void run() {
-//                Platform.runLater(new Runnable() {
-//                    public void run() {
-//                        if(!sw.updateLock)
-//                            if(timeDown==0){
-//                                infoDotC.setFill(Color.LIMEGREEN);
-//                                refreshL.setText("AKTUALIZACJA");
-//                                statusL.setText("Połaczenie aktywne");
-//                                update();
-//                                String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-//                                System.out.println("AKTUALIZACJA "+timeStamp);
-//                                timeDown=dc.getRefreshTime();
-//                                
-//                            }else{
-//                                refreshL.setText("Odświeżanie za: "+timeDown+"s");
-//                                timeDown--;
-//                            }
-//                    }
-//                });
-//            }
-//        };
-//        Timer timer = new Timer();
-//        timer.schedule(task, 0, 1*1000);
-//        
-//        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//            @Override
-//            public void handle(WindowEvent we) {
-//                timer.cancel();
-//                sw.getDialog().close();
-//                System.out.println("Goodbye");
-//            }
-//        });  
-//        
-//        if (sw.saveButton!=null) sw.saveButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                if(sw.saveSettings()){
-//                    sw.updateLock=false;
-//                    sw.getDialog().close();
-//                    updateSettings();
-//                }
-//            }
-//        });
-             
     }
     
     
@@ -329,6 +255,8 @@ public class MainWindow extends Application {
         electricityCostL.setText(formatter(dc.getElectricityCost(),"zl"));
         btcusdL.setText(formatter(dc.getPriceBTCUSD(),"btc"));
         dogebtcL.setText(formatter(dc.getPriceDOGEBTC(),"satoshi"));
+        btcStockName.setText("BTC/USD ("+dc.getBtcStock()+")");
+        dogeStockName.setText("DOGE/BTC ("+dc.getDogeStock()+")");
     }
     
     private String formatter(double value, String type){
@@ -364,6 +292,36 @@ public class MainWindow extends Application {
                 
         }
         return output;
+    }
+    
+    private void blinkControl(){
+        Color colorBlink = Color.web("#16507c");
+        Color colorDefault = Color.BLACK;
+        
+        ballanceL.setTextFill(colorBlink);
+        profitMainL.setTextFill(colorBlink);
+        electricityCostL.setTextFill(colorBlink);
+        btcusdL.setTextFill(colorBlink);
+        dogebtcL.setTextFill(colorBlink);
+        
+        
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(400);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                ballanceL.setTextFill(colorDefault);
+                profitMainL.setTextFill(colorDefault);
+                electricityCostL.setTextFill(colorDefault);
+                btcusdL.setTextFill(colorDefault);
+                dogebtcL.setTextFill(colorDefault);
+            }
+        });
+          
     }
     
     

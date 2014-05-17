@@ -26,6 +26,16 @@ public class Validator {
                     errorMsg = "Adres konta nie może być pusty";
                 }
             break;
+            case "constBalance":
+                try{
+                    double power = Double.parseDouble((String) value);
+                    if(power<0){
+                        errorMsg = "Podana wartośc salda nie może być ujemnna";
+                    }
+                }catch(NumberFormatException e){
+                  errorMsg = "Podana wartośc mocy jest niepoprawna";
+                }
+            break;
             case "power":
                 try{
                     double power = Double.parseDouble((String) value);

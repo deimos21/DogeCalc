@@ -26,6 +26,8 @@ public final class DogeCount {
     private double electricityCost;
     private boolean isConstElectricityCost;
     private double constElectricityCost;
+    private boolean isConstBallance;
+    private double constBallance;
     private int refreshTime;
     
     private double profit;
@@ -60,6 +62,8 @@ public final class DogeCount {
         Settings sets = ss.deserialzeSettings();
         
         accountAddress = sets.getAddressAccount();
+        isConstBallance = sets.isIsConstBallance();
+        constBallance = sets.getConstBallance();
         currency = sets.getCurrency();
         dogeStock = sets.getDogeStock();
         btcStock = sets.getBtcStock();
@@ -70,12 +74,23 @@ public final class DogeCount {
         constElectricityCost = sets.getConstElectricityCost();
         refreshTime = sets.getRefreshTime();
         
+        if(isConstBallance){
+            balance = constBallance;
+        }else{
+            balance = dd.downloadAccountBalance(accountAddress);
+        }
+        
         countElectricityCost();
         countProfit();
     }
     
     public void update(){
-        balance = dd.downloadAccountBalance(accountAddress);
+        if(isConstBallance){
+            balance = constBallance;
+        }else{
+            balance = dd.downloadAccountBalance(accountAddress);
+        }
+        
         priceDOGEBTC = (double) dd.downloadPricesDoge().get(dogeStock);
         priceBTCUSD = (double) dd.downloadPricesBTC().get(btcStock);
         
@@ -122,9 +137,13 @@ public final class DogeCount {
     
     
     private void countElectricityCost(){
-        Date now = new Date();
-        double hours = ((now.getTime() - dateStart.getTime())/(1000*60*60));
-        electricityCost = hours * powerCost * power/1000;
+        if(isConstElectricityCost){
+            electricityCost = constElectricityCost;
+        }else{
+            Date now = new Date();
+            double hours = ((now.getTime() - dateStart.getTime())/(1000*60*60));
+            electricityCost = hours * powerCost * power/1000;
+        }
     }
     
 

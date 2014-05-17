@@ -18,6 +18,8 @@ public class Settings implements Serializable{
     private Date dateStart;
     private boolean isConstElectricityCost;
     private double constElectricityCost;
+    private boolean isConstBallance;
+    private double constBallance;
     private int refreshTime;
     
     public Settings(){
@@ -36,6 +38,8 @@ public class Settings implements Serializable{
             isConstElectricityCost=false;
             constElectricityCost=0;
             refreshTime=10;
+            isConstBallance=false;
+            constBallance=0;
         }
     }
 
@@ -118,6 +122,22 @@ public class Settings implements Serializable{
 
     public void setRefreshTime(int refreshTime) {
         this.refreshTime = refreshTime;
+    }
+
+    public boolean isIsConstBallance() {
+        return isConstBallance;
+    }
+
+    public void setIsConstBallance(boolean isConstBallance) {
+        this.isConstBallance = isConstBallance;
+    }
+
+    public double getConstBallance() {
+        return constBallance;
+    }
+
+    public void setConstBallance(double constBallance) {
+        this.constBallance = constBallance;
     }
     
     

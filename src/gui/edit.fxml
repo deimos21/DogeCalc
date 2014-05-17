@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
@@ -7,30 +8,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <Label layoutX="36.0" layoutY="28.0" text="Adres konta:" />
-    <TextField fx:id="addressAccount" layoutX="145.0" layoutY="28.0" prefWidth="232.0" />
-    <Separator layoutX="0.0" layoutY="69.0" prefWidth="419.0" />
-    <Label layoutX="36.0" layoutY="128.0" text="Kurs BTC/USD:" />
-    <Label layoutX="36.0" layoutY="168.0" text="Kurs DOGE/BTC:" />
-    <ChoiceBox fx:id="dogeStock" layoutX="145.0" layoutY="128.0" prefWidth="232.0" />
-    <ChoiceBox fx:id="btcStock" layoutX="146.0" layoutY="166.0" prefWidth="232.0" />
-    <Separator layoutX="0.0" layoutY="213.0" prefWidth="419.0" />
-    <CheckBox fx:id="isConstElectricityCost" layoutX="36.0" layoutY="363.0" mnemonicParsing="false" text="Stała kwota" />
-    <TextField fx:id="constElectricityCost" disable="true" layoutX="145.0" layoutY="360.0" prefWidth="232.0" />
-    <Label layoutX="36.0" layoutY="241.0" text="Moc koparek:" />
-    <TextField fx:id="power" layoutX="145.0" layoutY="239.0" prefWidth="232.0" />
-    <Label layoutX="36.0" layoutY="277.0" text="Taryfa:" />
-    <TextField fx:id="powerCost" layoutX="145.0" layoutY="275.0" prefWidth="232.0" />
-    <Label layoutX="36.0" layoutY="313.0" text="Data początkowa:" />
-    <DatePicker fx:id="dateStart" layoutX="145.0" layoutY="311.0" prefWidth="232.0" />
-    <Separator layoutX="0.0" layoutY="407.0" prefWidth="419.0" />
-    <Button fx:id="saveButton" layoutX="306.0" layoutY="485.0" mnemonicParsing="false" prefWidth="72.0" text="Zapisz" />
-    <Label layoutX="36.0" layoutY="91.0" text="Waluta zysku:" />
-    <ChoiceBox fx:id="currency" layoutX="145.0" layoutY="91.0" prefWidth="232.0" />
-    <Label layoutX="36.0" layoutY="427.0" text="Odświeżanie (sek):" />
-    <TextField fx:id="refreshTime" layoutX="145.0" layoutY="425.0" prefWidth="232.0" />
-    <Separator layoutX="0.0" layoutY="464.0" prefWidth="419.0" />
+    <Label layoutX="36.0" layoutY="29.0" text="Adres konta:" />
+    <TextField fx:id="addressAccount" layoutX="149.0" layoutY="28.0" prefWidth="232.0" />
+    <Separator layoutY="118.0" prefWidth="419.0" />
+    <Label layoutX="36.0" layoutY="177.0" text="Kurs BTC/USD:" />
+    <Label layoutX="36.0" layoutY="217.0" text="Kurs DOGE/BTC:" />
+    <ChoiceBox fx:id="dogeStock" layoutX="149.0" layoutY="177.0" prefWidth="232.0" />
+    <ChoiceBox fx:id="btcStock" layoutX="150.0" layoutY="215.0" prefWidth="232.0" />
+    <Separator layoutY="262.0" prefWidth="419.0" />
+    <CheckBox fx:id="isConstElectricityCost" layoutX="36.0" layoutY="418.0" mnemonicParsing="false" text="Stała kwota" />
+    <TextField fx:id="constElectricityCost" disable="true" layoutX="150.0" layoutY="415.0" prefWidth="232.0" />
+    <Label layoutX="36.0" layoutY="307.0" text="Moc koparek (Wat):" />
+    <TextField fx:id="power" layoutX="149.0" layoutY="305.0" prefWidth="232.0" />
+    <Label layoutX="36.0" layoutY="343.0" text="Taryfa (kWH):" />
+    <TextField fx:id="powerCost" layoutX="149.0" layoutY="341.0" prefWidth="232.0" />
+    <Label layoutX="36.0" layoutY="379.0" text="Data początkowa:" />
+    <DatePicker fx:id="dateStart" layoutX="149.0" layoutY="377.0" prefWidth="232.0" />
+    <Separator layoutY="461.0" prefWidth="419.0" />
+    <Button fx:id="saveButton" layoutX="310.0" layoutY="546.0" mnemonicParsing="false" prefWidth="72.0" text="Zapisz" />
+    <Label layoutX="36.0" layoutY="140.0" text="Waluta zysku:" />
+    <ChoiceBox fx:id="currency" layoutX="149.0" layoutY="140.0" prefWidth="232.0" />
+    <Label layoutX="36.0" layoutY="485.0" text="Odświeżanie (sek):" />
+    <TextField fx:id="refreshTime" layoutX="149.0" layoutY="483.0" prefWidth="232.0" />
+    <Separator layoutY="525.0" prefWidth="419.0" />
+      <TextField id="constBallance" fx:id="addressAccount1" disable="true" layoutX="150.0" layoutY="68.0" prefWidth="232.0" />
+      <CheckBox id="isConstBallance" fx:id="isConstElectricityCost1" layoutX="36.0" layoutY="72.0" mnemonicParsing="false" text="Stałe saldo:" />
+      <Label layoutX="168.0" layoutY="270.0" text="KOSZTY PRĄDU">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>
