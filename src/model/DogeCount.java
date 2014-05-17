@@ -1,16 +1,16 @@
 package model;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  *
  * @author Marcin Gordel
  */
-public class DogeCount {
+public final class DogeCount {
     
     private String accountAddress;
     private double priceBTCUSD;
@@ -39,16 +39,21 @@ public class DogeCount {
     private DataDownloader dd;
     private SettingsStorage ss;
     
-    public Logger logger = Logger.getLogger(DogeCount.class.getName());
+    public static final Logger logger = Logger.getLogger(DogeCount.class.getName());
+    
+    public IntegerProperty progressLoad;
 
     public DogeCount(){
+        progressLoad = new SimpleIntegerProperty(0);
+    }
+    
+    public void init(){
         dd = new DataDownloader();
-        
+        progressLoad.set(5);
         ss = new SettingsStorage();
-        
+        progressLoad.set(15);
         updateSettings();
-        
-        
+        progressLoad.set(20);
     }
     
     public void updateSettings(){

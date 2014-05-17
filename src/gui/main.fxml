@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="415.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <Pane id="toolbar-pane" layoutX="0.0" layoutY="0.0" prefHeight="34.0" prefWidth="415.0" style="-fx-background-color: &#10;        #011226,&#10;        linear-gradient(#011226, #173c6c),&#10;        linear-gradient(#011226 0%, #173c6c 100%);&#10;    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
       <children>
@@ -61,7 +61,7 @@
         <Label id="profit3L" alignment="CENTER" font="$x2" layoutX="208.0" layoutY="162.0" prefWidth="172.5" text="14.356,08 €" textFill="$x3" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x222222ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="2.0" layoutX="1.0" layoutY="199.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="415.0" />
         <Label font="$x1" layoutX="10.0" layoutY="206.0" text="Koszty prądu:" />
-        <Label id="electricityCostL" alignment="CENTER" font="$x2" layoutX="2.0" layoutY="215.0" prefWidth="414.9999000000025" text="8.749,04 zł" textFill="#404040" />
+        <Label id="electricityCostL" alignment="CENTER" font="$x2" layoutY="215.0" prefHeight="23.0" layoutX="0.0" prefWidth="415.0" text="8.749,04 zł" textFill="#404040" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x222222ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="2.0" layoutX="0.0" layoutY="249.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="415.0" />
         <Label font="$x1" layoutX="10.0" layoutY="245.0" prefHeight="42.181640625" prefWidth="78.0" text="BTC/USD:" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, 0xbbbbbbff 0.0%, 0x999999ff 30.0%, 0x555555ff 50.0%, 0x999999ff 70.0%, 0xbbbbbbff 100.0%)" height="95.0" layoutX="205.0" layoutY="251.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" styleClass="separator" width="2.0" />

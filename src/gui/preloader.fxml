@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392" prefWidth="405.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane id="toolbar-pane" prefHeight="34.0" prefWidth="415.0" style="-fx-background-color: &#10;        #011226,&#10;        linear-gradient(#011226, #173c6c),&#10;        linear-gradient(#011226 0%, #173c6c 100%);&#10;    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+         <children>
+            <Label layoutX="149.0" layoutY="3.0" prefWidth="150.0" text="DogeCoin Calc" textFill="WHITE">
+               <font>
+                  <Font name="Segoe Print" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="31.0" fitWidth="34.0" layoutX="100.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/shiba.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ImageView fitHeight="161.0" fitWidth="164.0" layoutX="127.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/dogecoin.png" />
+         </image>
+      </ImageView>
+      <ProgressBar id="progressBar" layoutX="69.0" layoutY="298.0" prefHeight="18.0" prefWidth="277.0" progress="0.0" />
+      <Label id="info" alignment="CENTER" contentDisplay="CENTER" layoutX="69.0" layoutY="339.0" prefHeight="17.0" prefWidth="277.0" text="Ładowanie API aktualnych kursów" textAlignment="CENTER">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

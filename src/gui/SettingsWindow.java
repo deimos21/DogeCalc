@@ -12,13 +12,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -71,6 +67,8 @@ public class SettingsWindow {
         dialog.setScene(sceneEdit);
         
         mb = new MessageBox();
+        
+        mb.getDialog().initOwner(dialog);
         
         this.ss = ss;
         

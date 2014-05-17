@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
@@ -9,12 +10,17 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="213.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <Label id="messageL" alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="168.0" prefWidth="404.9999000000025" text="Label" textAlignment="CENTER" wrapText="true">
+    <Label id="messageL" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="69.0" prefHeight="107.0" prefWidth="405.0" text="Label" textAlignment="CENTER" wrapText="true">
       <font>
         <Font size="16.0" />
       </font>
     </Label>
     <Separator layoutX="0.0" layoutY="168.0" prefWidth="405.0" />
     <Button id="okButton" layoutX="328.0" layoutY="180.0" mnemonicParsing="false" prefWidth="63.0" text="OK" />
+      <ImageView fitHeight="48.0" fitWidth="50.0" layoutX="179.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/error.png" />
+         </image>
+      </ImageView>
   </children>
 </AnchorPane>
