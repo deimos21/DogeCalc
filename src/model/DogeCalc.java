@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  *
  * @author Marcin Gordel
  */
-public final class DogeCount {
+public final class DogeCalc {
     
     private String accountAddress;
     private double priceBTCUSD;
@@ -41,11 +41,11 @@ public final class DogeCount {
     private DataDownloader dd;
     private SettingsStorage ss;
     
-    public static final Logger logger = Logger.getLogger(DogeCount.class.getName());
+    public static final Logger logger = Logger.getLogger(DogeCalc.class.getName());
     
     public IntegerProperty progressLoad;
 
-    public DogeCount(){
+    public DogeCalc(){
         progressLoad = new SimpleIntegerProperty(0);
     }
     

@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -33,7 +32,7 @@ public class Validator {
                         errorMsg = "Podana wartośc salda nie może być ujemnna";
                     }
                 }catch(NumberFormatException e){
-                  errorMsg = "Podana wartośc mocy jest niepoprawna";
+                  errorMsg = "Podana wartośc salda jest niepoprawna";
                 }
             break;
             case "power":

@@ -79,7 +79,7 @@ public class Test {
     }
     
     private void testDogeCount(){
-        DogeCount dc = new DogeCount();
+        DogeCalc dc = new DogeCalc();
         
         dc.update();
         

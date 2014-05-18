@@ -1,6 +1,9 @@
 package gui;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,14 +23,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import model.DogeCount;
+import model.DogeCalc;
 import model.ErrorsHandler;
 
 /**
@@ -36,7 +42,7 @@ import model.ErrorsHandler;
  */
 public class MainWindow extends Application {
     
-    private DogeCount dc;
+    private DogeCalc dc;
     
     private Label ballanceL;
     private Label profitMainL;
@@ -109,7 +115,7 @@ public class MainWindow extends Application {
         
         
         
-        dc = new DogeCount();
+        dc = new DogeCalc();
                 
         dc.progressLoad.addListener(new ChangeListener(){
             @Override public void changed(ObservableValue o,Object oldVal, 
@@ -124,7 +130,8 @@ public class MainWindow extends Application {
         progressLoad.set(25);
         
         primaryStage.setResizable(false);
-        primaryStage.setTitle("DogeCount");
+        primaryStage.setTitle("DogeCalc");
+        primaryStage.getIcons().add(new Image("/gui/img/dogecalc.png"));
                 
         ballanceL = (Label) root.lookup("#ballanceL");
         profitMainL = (Label) root.lookup("#profitMainL");
@@ -139,12 +146,41 @@ public class MainWindow extends Application {
         btcStockName = (Label) root.lookup("#btcStockName");
         dogeStockName = (Label) root.lookup("#dogeStockName");
         
+        Stage aboutDialog = new Stage();
+        aboutDialog.initStyle(StageStyle.UTILITY);
+        aboutDialog.setResizable(false);
+        aboutDialog.setTitle("O programie");
+        aboutDialog.initOwner(primaryStage);
+        Parent aboutRoot = FXMLLoader.load(getClass().getResource("about.fxml"));
+        Scene sceneAbout = new Scene(aboutRoot);
+        aboutDialog.setScene(sceneAbout);
+        
+        Hyperlink gordelHl = (Hyperlink) aboutRoot.lookup("#gordel");
+        Hyperlink dogeAccountHl = (Hyperlink) aboutRoot.lookup("#dogeAccount");
+        Hyperlink dogeHl = (Hyperlink) aboutRoot.lookup("#doge");
+        Hyperlink btcHl = (Hyperlink) aboutRoot.lookup("#btc");
+        Hyperlink currencyHl = (Hyperlink) aboutRoot.lookup("#currency");
+        Button aboutOk = (Button) aboutRoot.lookup("#okButton");
+        aboutOk.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent event) {
+                System.out.println("OK");
+                aboutDialog.close();
+            }
+        });
+        
+        setUrlOnAction(gordelHl);
+        setUrlOnAction(dogeAccountHl);
+        setUrlOnAction(dogeHl);
+        setUrlOnAction(btcHl);
+        setUrlOnAction(currencyHl);
+        
         Button helpButton = (Button) root.lookup("#helpBt");
         if (helpButton!=null) helpButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                //TODO
+                aboutDialog.show();
             }
         });
         
@@ -324,6 +360,20 @@ public class MainWindow extends Application {
           
     }
     
+    private void setUrlOnAction(Hyperlink hp){
+        hp.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI(hp.getText()));
+                } catch (IOException ex) {
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
     
     public static void main(String[] args) {
         launch(args);

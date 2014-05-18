@@ -20,7 +20,7 @@ public class SettingsStorage {
     
     public SettingsStorage(){
         String separator = System.getProperty("file.separator");
-        settsDirectory = System.getProperty("user.home")+separator+"DogeCount"+separator;
+        settsDirectory = System.getProperty("user.home")+separator+".dogecalc"+separator;
         nameOfFile = "settings.set";
         
         File dir = new File(settsDirectory);

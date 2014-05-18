@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="205.0" layoutY="70.0" prefHeight="17.0" prefWidth="140.0" text="Build: 0.8.2 (18.05.2014)">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="204.0" layoutY="24.0" prefHeight="17.0" prefWidth="140.0" text="DogeCalc ">
+         <font>
+            <Font name="Segoe Print Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="77.0" fitWidth="77.0" layoutX="96.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/dogecalc.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="99.0" layoutY="146.0" prefHeight="17.0" prefWidth="77.0" text="Autor:" textAlignment="RIGHT" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="99.0" layoutY="176.0" prefHeight="17.0" prefWidth="77.0" text="WWW:" textAlignment="RIGHT" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="99.0" layoutY="206.0" prefHeight="17.0" prefWidth="77.0" text="Mail:" textAlignment="RIGHT" />
+      <Separator layoutX="15.0" layoutY="122.0" prefHeight="3.0" prefWidth="408.0" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="26.0" layoutY="357.0" prefHeight="17.0" prefWidth="149.0" text="API kursu BTC:" textAlignment="RIGHT" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="36.0" layoutY="324.0" prefHeight="17.0" prefWidth="140.0" text="API kursu Doge:" textAlignment="RIGHT" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="12.0" layoutY="293.0" prefHeight="17.0" prefWidth="164.0" text="API Doge Account Balance:" textAlignment="RIGHT" />
+      <Label layoutX="194.0" layoutY="146.0" prefHeight="17.0" prefWidth="184.0" text="Marcin Gordel">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="27.0" layoutY="383.0" prefHeight="17.0" prefWidth="149.0" text="API kursów walut:" textAlignment="RIGHT" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="99.0" layoutY="236.0" prefHeight="17.0" prefWidth="77.0" text="Donate DOGE:" textAlignment="RIGHT" />
+      <Hyperlink id="gordel" layoutX="191.0" layoutY="173.0" text="http://gordel.pl/" />
+      <Hyperlink id="dogeAccount" layoutX="191.0" layoutY="290.0" text="http://dogechain.info/" />
+      <Hyperlink id="doge" layoutX="191.0" layoutY="321.0" text="http://www.cryptocoincharts.info/" />
+      <Hyperlink id="btc" layoutX="191.0" layoutY="352.0" text="http://api.bitcoinaverage.com" />
+      <Hyperlink id="currency" layoutX="191.0" layoutY="380.0" text="http://kantor.aliorbank.pl/" />
+      <Separator layoutX="16.0" layoutY="274.0" prefHeight="3.0" prefWidth="408.0" />
+      <Separator layoutX="16.0" layoutY="425.0" prefHeight="3.0" prefWidth="408.0" />
+      <Button id="okButton" layoutX="313.0" layoutY="444.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="OK" />
+      <TextField editable="false" layoutX="186.0" layoutY="232.0" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: transparent; -fx-background-insets: 0px;" text="D7qiHYRU4Ti3h5CPipY5gpz94ZD1jPB3TH" />
+      <TextField editable="false" layoutX="186.0" layoutY="202.0" prefHeight="25.0" prefWidth="213.0" style="-fx-background-color: transparent; -fx-background-insets: 0px;" text="marcin@gordel.pl" />
+   </children>
+</AnchorPane>

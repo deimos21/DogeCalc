@@ -43,9 +43,9 @@ public class DataDownloader {
                 balance = Double.parseDouble(textFromApi);
             }
         } catch (NumberFormatException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, "Nieprawidłowy numer konta", ex);
+            Logger.getLogger(DogeCalc.class.getName()).log(Level.SEVERE, "Nieprawidłowy numer konta", ex);
         } catch (IOException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, "Błąd pobierania salda z konta", ex);
+            Logger.getLogger(DogeCalc.class.getName()).log(Level.SEVERE, "Błąd pobierania salda z konta", ex);
         }
         return balance;
     }
@@ -81,9 +81,9 @@ public class DataDownloader {
                         
             
         } catch (ParseException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, "Błąd parsowania kursu BTC", ex);
+            Logger.getLogger(DogeCalc.class.getName()).log(Level.SEVERE, "Błąd parsowania kursu BTC", ex);
         } catch (IOException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, "Błąd pobierania kursu BTC: "+ex.getMessage(), ex);
+            Logger.getLogger(DogeCalc.class.getName()).log(Level.SEVERE, "Błąd pobierania kursu BTC: "+ex.getMessage(), ex);
         }
         
         return pricesBTC;
@@ -118,9 +118,9 @@ public class DataDownloader {
             
             
         } catch (ParseException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, "Błąd parsowania kursu DOGE", ex);
+            Logger.getLogger(DogeCalc.class.getName()).log(Level.SEVERE, "Błąd parsowania kursu DOGE", ex);
         } catch (IOException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, "Błąd pobierania kursu DOGE", ex);
+            Logger.getLogger(DogeCalc.class.getName()).log(Level.SEVERE, "Błąd pobierania kursu DOGE", ex);
         }
         
         pricesDoge.put("Cryptsy",priceDoge);
@@ -162,9 +162,9 @@ public class DataDownloader {
             pricesCurrencies.put("USD/EUR",usdeur);
             
         } catch (ParseException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, "Błąd parsowania kursów walut", ex);
+            Logger.getLogger(DogeCalc.class.getName()).log(Level.SEVERE, "Błąd parsowania kursów walut", ex);
         } catch (IOException ex) {
-            Logger.getLogger(DogeCount.class.getName()).log(Level.SEVERE, "Błąd pobierania kursów walut", ex);
+            Logger.getLogger(DogeCalc.class.getName()).log(Level.SEVERE, "Błąd pobierania kursów walut", ex);
         }
         
         return pricesCurrencies;
