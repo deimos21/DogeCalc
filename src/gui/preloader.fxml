@@ -24,7 +24,7 @@
       </Pane>
       <ImageView fitHeight="161.0" fitWidth="164.0" layoutX="127.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@img/dogecoin.png" />
+            <Image url="@img/dogecalc.png" />
          </image>
       </ImageView>
       <ProgressBar id="progressBar" layoutX="69.0" layoutY="298.0" prefHeight="18.0" prefWidth="277.0" progress="0.0" />

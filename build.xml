@@ -7,9 +7,20 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="DogeCount" default="default" basedir=".">
-    <description>Builds, tests, and runs the project DogeCount.</description>
+<project name="DogeCalc" default="default" basedir="." xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <description>Builds, tests, and runs the project DogeCalc.</description>
     <import file="nbproject/build-impl.xml"/>
+    <target name="-post-jfx-deploy">
+        <fx:deploy width="${javafx.run.width}" height="${javafx.run.height}" 
+                  nativeBundles="all"
+                  outdir="${basedir}/${dist.dir}" outfile="${application.title}">
+            <fx:application name="${application.title}" mainClass="${javafx.main.class}"/>
+            <fx:resources>
+                    <fx:fileset dir="${basedir}/${dist.dir}" includes="DogeCalc.jar"/>
+            </fx:resources>
+            <fx:info title="DogeCalc" vendor="Marcin Gordel"/>
+        </fx:deploy>          
+    </target>
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -58,7 +69,7 @@
 
     An example of overriding the target for project execution could look like this:
 
-        <target name="run" depends="DogeCount-impl.jar">
+        <target name="run" depends="DogeCalc-impl.jar">
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>

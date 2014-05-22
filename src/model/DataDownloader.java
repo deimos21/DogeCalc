@@ -21,14 +21,14 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author Marcin
+ * @author Marcin Gordel
  */
 public class DataDownloader {
     
     String urlApiAccountBalance="http://dogechain.info/chain/CHAIN/q/addressbalance/";
     String urlApiPricesBTC="https://api.bitcoinaverage.com/exchanges/USD";
     String urlApiPricesDoge="http://www.cryptocoincharts.info/v2/api/tradingPairs";
-    String urlApiPricesCurrencies="https://kantor.aliorbank.pl/forex/json/current";
+    String urlApiPricesCurrencies="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Ffinance.yahoo.com%2Fd%2Fquotes.csv%3Fe%3D.csv%26f%3Dc4l1%26s%3DEURUSD%3DX%2CUSDPLN%3DX%22%3B&format=json&diagnostics=true&callback=";
     
     int timeout = 6000;
     String method = "GET";
@@ -140,24 +140,26 @@ public class DataDownloader {
             Object obj = parser.parse(jsonFromApi);
           
             JSONObject obj2 = (JSONObject) obj;
-            Object obj3 = parser.parse(obj2.get("currencies").toString());
-            JSONArray array = (JSONArray)obj3;
+            obj = parser.parse(obj2.get("query").toString());
+            JSONObject obj3 = (JSONObject) obj;
+            obj = parser.parse(obj3.get("results").toString());
+            JSONObject obj4 = (JSONObject) obj;
+            obj = parser.parse(obj4.get("row").toString());
+            JSONArray array = (JSONArray) obj;
+            
+            JSONObject obj5 = (JSONObject) array.get(0);
+            JSONObject obj6 = (JSONObject) array.get(1);
             
             double plnusd = 0;
             double usdeur = 0;
-            JSONObject currencies;
-                        
-            for(int i=0;i<array.size();i++){
-                currencies = (JSONObject) array.get(i);
-                if(("PLN".equals(currencies.get("currency1").toString())) && ("USD".equals(currencies.get("currency2").toString()))){
-                    String valueWithDot = currencies.get("buy").toString().replaceAll(",",".");
-                    plnusd = Double.parseDouble(valueWithDot);
-                }
-                if(("USD".equals(currencies.get("currency1").toString())) && ("EUR".equals(currencies.get("currency2").toString()))){
-                    String valueWithDot = currencies.get("buy").toString().replaceAll(",",".");
-                    usdeur = Double.parseDouble(valueWithDot);
-                }
+            if("EUR".equals(obj5.get("col0").toString())){
+                usdeur=Double.parseDouble(obj5.get("col1").toString());
             }
+            if("PLN".equals(obj6.get("col0").toString())){
+                plnusd=Double.parseDouble(obj6.get("col1").toString());
+            }
+                                    
+
             pricesCurrencies.put("PLN/USD",plnusd);
             pricesCurrencies.put("USD/EUR",usdeur);
             
@@ -218,7 +220,7 @@ public class DataDownloader {
     }
     
     public static ArrayList getAvailableCurrencies(){
-        ArrayList<String> currencies = new ArrayList();
+        ArrayList<String> currencies = new ArrayList<String>();
         currencies.add("PLN");
         // TODO in future
         //currencies.add("USD");
@@ -228,7 +230,7 @@ public class DataDownloader {
     }
     
     public static ArrayList getAvailableBtcStocks(){
-        ArrayList<String> stocks = new ArrayList();
+        ArrayList<String> stocks = new ArrayList<String>();
         DataDownloader dd = new DataDownloader();
         
         HashMap hm = dd.downloadPricesBTC();
@@ -244,7 +246,7 @@ public class DataDownloader {
     }
     
     public static ArrayList getAvailableDogeStocks(){
-        ArrayList<String> stocks = new ArrayList();
+        ArrayList<String> stocks = new ArrayList<String>();
         DataDownloader dd = new DataDownloader();
         
         HashMap hm = dd.downloadPricesDoge();

@@ -41,7 +41,7 @@
       <Hyperlink id="dogeAccount" layoutX="191.0" layoutY="290.0" text="http://dogechain.info/" />
       <Hyperlink id="doge" layoutX="191.0" layoutY="321.0" text="http://www.cryptocoincharts.info/" />
       <Hyperlink id="btc" layoutX="191.0" layoutY="352.0" text="http://api.bitcoinaverage.com" />
-      <Hyperlink id="currency" layoutX="191.0" layoutY="380.0" text="http://kantor.aliorbank.pl/" />
+      <Hyperlink id="currency" layoutX="191.0" layoutY="380.0" text="http://developer.yahoo.com" />
       <Separator layoutX="16.0" layoutY="274.0" prefHeight="3.0" prefWidth="408.0" />
       <Separator layoutX="16.0" layoutY="425.0" prefHeight="3.0" prefWidth="408.0" />
       <Button id="okButton" layoutX="313.0" layoutY="444.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="OK" />

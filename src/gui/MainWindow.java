@@ -72,14 +72,14 @@ public class MainWindow extends Application {
         final ProgressBar pb = (ProgressBar) preloader.lookup("#progressBar");
         final Label info = (Label) preloader.lookup("#info");
         
-        IntegerProperty progressLoad = new SimpleIntegerProperty(0);
+        final IntegerProperty progressLoad = new SimpleIntegerProperty(0);
         
         primaryStage.show();
         
-        progressLoad.addListener(new ChangeListener(){
-            @Override public void changed(ObservableValue o,Object oldVal, 
-                     Object newVal){
-                 switch((int)newVal){
+        final ChangeListener<?super Number> changeListener = new ChangeListener<Number>(){
+            @Override 
+            public void changed(ObservableValue<? extends Number> o,Number oldVal, Number newVal){
+                  switch((int)newVal.intValue()){
                      case 5:
                          info.setText("Ładowanie pliku ustawień");
                          System.out.print("Ładowanie pliku ustawień ");
@@ -108,19 +108,19 @@ public class MainWindow extends Application {
                      break;
                  }
                  
-                 pb.setProgress((double)((int)newVal)/100);
+                 pb.setProgress((double)((int)newVal.intValue())/100);
                  System.out.println(pb.getProgress()*100+"%");
             }
-        });
+        };
         
-        
+        progressLoad.addListener(changeListener);
         
         dc = new DogeCalc();
                 
-        dc.progressLoad.addListener(new ChangeListener(){
-            @Override public void changed(ObservableValue o,Object oldVal, 
-                     Object newVal){
-                 progressLoad.set((int) newVal);
+        dc.progressLoad.addListener((ChangeListener<?super Number>)new ChangeListener<Number>(){
+            @Override public void changed(ObservableValue<? extends Number> o,Number oldVal, 
+                     Number newVal){
+                 progressLoad.set((int) newVal.intValue());
             }
         });
         
